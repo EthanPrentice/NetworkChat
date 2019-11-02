@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MessageRouter - </title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">com.ethanprentice.networkchat.message_router</a>&nbsp;/&nbsp;<a href=".">MessageRouter</a><br/>
+<br/>
+<h1>MessageRouter</h1>
+<code><span class="keyword">object </span><span class="identifier">MessageRouter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span></code>
+<p>Acts as a middleware so all components send messages to a single point and receive from a single point (other than messages received from external devices)
+This reduces interdependencies between components</p>
+<p><strong>Author</strong><br/>
+Ethan Prentice</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="endpoint-manager.html">endpointManager</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">endpointManager</span><span class="symbol">: </span><a href="../-endpoint-manager/index.html"><span class="identifier">EndpointManager</span></a></code></td>
+</tr>
+<tr>
+<td>
+<a href="msg-factory.html">msgFactory</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">msgFactory</span><span class="symbol">: </span><a href="../-message-factory/index.html"><span class="identifier">MessageFactory</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="handle-message.html">handleMessage</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">handleMessage</span><span class="symbol">(</span><span class="identifier" id="com.ethanprentice.networkchat.message_router.MessageRouter$handleMessage(com.ethanprentice.networkchat.adt.Message)/_message">_message</span><span class="symbol">:</span>&nbsp;<a href="../../com.ethanprentice.networkchat.adt/-message/index.html"><span class="identifier">Message</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Redirects messages to their endpoint's MessageHandler</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,93 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CmMessageHandler - </title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">com.ethanprentice.networkchat.connection_manager</a>&nbsp;/&nbsp;<a href=".">CmMessageHandler</a><br/>
+<br/>
+<h1>CmMessageHandler</h1>
+<code><span class="keyword">class </span><span class="identifier">CmMessageHandler</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../com.ethanprentice.shaka.message_manager/-message-handler/index.html"><span class="identifier">MessageHandler</span></a></code>
+<p>Handles messages that are redirected to ConnectionManager by MessageManager</p>
+<p><strong>Author</strong><br/>
+Ethan Prentice</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-init-.html">&lt;init&gt;</a></td>
+<td>
+<code><span class="identifier">CmMessageHandler</span><span class="symbol">(</span><span class="identifier" id="com.ethanprentice.networkchat.connection_manager.CmMessageHandler$<init>(com.ethanprentice.networkchat.message_router.MessageRouter)/msgManager">msgManager</span><span class="symbol">:</span>&nbsp;<a href="../../com.ethanprentice.shaka.message_manager/-message-manager/index.html"><span class="identifier">MessageManager</span></a><span class="symbol">)</span></code>
+<p>Handles messages that are redirected to ConnectionManager by MessageManager</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="handler-name.html">handlerName</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">handlerName</span><span class="symbol">: </span><span class="identifier">String</span></code>
+<p>Used to compare handlers to prevent registering duplicates and for processing endpointName strings</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../../com.ethanprentice.shaka.message_manager/-message-handler/msg-manager.html">msgManager</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">msgManager</span><span class="symbol">: </span><a href="../../com.ethanprentice.shaka.message_manager/-message-manager/index.html"><span class="identifier">MessageManager</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="handle-message.html">handleMessage</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">handleMessage</span><span class="symbol">(</span><span class="identifier" id="com.ethanprentice.networkchat.connection_manager.CmMessageHandler$handleMessage(com.ethanprentice.networkchat.adt.Message)/_message">_message</span><span class="symbol">:</span>&nbsp;<a href="../../com.ethanprentice.shaka.adt/-message/index.html"><span class="identifier">Message</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Receives messages from the MessageManager to be processed by the component</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="register.html">register</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">register</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Registers all <a href="../-connection-manager/index.html">ConnectionManager</a> related endpoints with the <a href="../../com.ethanprentice.shaka.message_manager/-message-manager/index.html">MessageManager</a> so <a href="../../com.ethanprentice.shaka.adt/-message/index.html">Message</a>s can be routed here</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../../com.ethanprentice.shaka.message_manager/-message-handler/compare-to.html">compareTo</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">compareTo</span><span class="symbol">(</span><span class="identifier" id="com.ethanprentice.networkchat.adt.MessageHandler$compareTo(com.ethanprentice.networkchat.adt.MessageHandler)/other">other</span><span class="symbol">:</span>&nbsp;<a href="../../com.ethanprentice.shaka.message_manager/-message-handler/index.html"><span class="identifier">MessageHandler</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code>
+<p>Compares the <a href="../../com.ethanprentice.shaka.message_manager/-message-handler/index.html">MessageHandler</a>'s based on <a href="../../com.ethanprentice.shaka.message_manager/-message-handler/handler-name.html">handlerName</a> equivalence</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.ethanprentice.shaka.message_manager/-message-handler/equals.html">equals</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">equals</span><span class="symbol">(</span><span class="identifier" id="com.ethanprentice.networkchat.adt.MessageHandler$equals(kotlin.Any)/other">other</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

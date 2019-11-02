@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.ethanprentice.networkchat.connection_manager.messages - </title>
+<link rel="stylesheet" href="..\style.css">
+</HEAD>
+<BODY>
+<a href=".">com.ethanprentice.networkchat.connection_manager.messages</a><br/>
+<br/>
+<h2>Package com.ethanprentice.networkchat.connection_manager.messages</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-chat-broadcast/index.html">ChatBroadcast</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ChatBroadcast</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../com.ethanprentice.networkchat.adt/-serializable-message/index.html"><span class="identifier">SerializableMessage</span></a></code></td>
+</tr>
+<tr>
+<td>
+<a href="-chat-message/index.html">ChatMessage</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ChatMessage</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../com.ethanprentice.networkchat.adt/-serializable-message/index.html"><span class="identifier">SerializableMessage</span></a></code></td>
+</tr>
+<tr>
+<td>
+<a href="-connection-request/index.html">ConnectionRequest</a></td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">ConnectionRequest</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../com.ethanprentice.networkchat.adt/-serializable-message/index.html"><span class="identifier">SerializableMessage</span></a></code>
+<p>To be sent to a UDP socket on another device to request a TCP connection</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-connection-response/index.html">ConnectionResponse</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ConnectionResponse</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../com.ethanprentice.networkchat.adt/-serializable-message/index.html"><span class="identifier">SerializableMessage</span></a></code>
+<p>Used to to be sent to a UDP socket on a device that sent a <a href="-connection-request/index.html">ConnectionRequest</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-info-request/index.html">InfoRequest</a></td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">InfoRequest</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../com.ethanprentice.networkchat.adt/-serializable-message/index.html"><span class="identifier">SerializableMessage</span></a></code>
+<p>To be sent as a broadcast to find devices on the network also running Network Chat</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-info-response/index.html">InfoResponse</a></td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">InfoResponse</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../com.ethanprentice.networkchat.adt/-serializable-message/index.html"><span class="identifier">SerializableMessage</span></a></code>
+<p>To be sent as a response to <a href="-info-request/index.html">InfoRequest</a> to notify the target device that the current device is also running Shaka</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

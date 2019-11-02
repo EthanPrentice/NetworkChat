@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>EndpointManager - </title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">com.ethanprentice.networkchat.message_router</a>&nbsp;/&nbsp;<a href=".">EndpointManager</a><br/>
+<br/>
+<h1>EndpointManager</h1>
+<code><span class="keyword">class </span><span class="identifier">EndpointManager</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span></code>
+<p>Allows the dynamic registering of MessageHandlers and Endpoints so MessageRouter is not directly dependent on any components
+This also helps to allow each MessageHandler to operate completely independently of any components in-case of addition of new components or deprecation</p>
+<p><strong>Author</strong><br/>
+Ethan Prentice</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-init-.html">&lt;init&gt;</a></td>
+<td>
+<code><span class="identifier">EndpointManager</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>Allows the dynamic registering of MessageHandlers and Endpoints so MessageRouter is not directly dependent on any components
+This also helps to allow each MessageHandler to operate completely independently of any components in-case of addition of new components or deprecation</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="get-endpoint.html">getEndpoint</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getEndpoint</span><span class="symbol">(</span><span class="identifier" id="com.ethanprentice.networkchat.message_router.EndpointManager$getEndpoint(kotlin.String)/endpointName">endpointName</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.ethanprentice.networkchat.adt/-endpoint/index.html"><span class="identifier">Endpoint</span></a><span class="symbol">?</span></code>
+<p>Gets the handler associated with the provided <a href="get-endpoint.html#com.ethanprentice.networkchat.message_router.EndpointManager$getEndpoint(kotlin.String)/endpointName">endpointName</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="get-handler.html">getHandler</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getHandler</span><span class="symbol">(</span><span class="identifier" id="com.ethanprentice.networkchat.message_router.EndpointManager$getHandler(com.ethanprentice.networkchat.adt.Endpoint)/endpoint">endpoint</span><span class="symbol">:</span>&nbsp;<a href="../../com.ethanprentice.networkchat.adt/-endpoint/index.html"><span class="identifier">Endpoint</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.ethanprentice.networkchat.adt/-message-handler/index.html"><span class="identifier">MessageHandler</span></a><span class="symbol">?</span></code>
+<p>Gets the handler associated with the provided <a href="get-handler.html#com.ethanprentice.networkchat.message_router.EndpointManager$getHandler(com.ethanprentice.networkchat.adt.Endpoint)/endpoint">endpoint</a></p>
+<code><span class="keyword">fun </span><span class="identifier">getHandler</span><span class="symbol">(</span><span class="identifier" id="com.ethanprentice.networkchat.message_router.EndpointManager$getHandler(kotlin.String)/endpointName">endpointName</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.ethanprentice.networkchat.adt/-message-handler/index.html"><span class="identifier">MessageHandler</span></a><span class="symbol">?</span></code>
+<p>Gets the handler associated with the provided <a href="get-handler.html#com.ethanprentice.networkchat.message_router.EndpointManager$getHandler(kotlin.String)/endpointName">endpointName</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="register-endpoint.html">registerEndpoint</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">registerEndpoint</span><span class="symbol">(</span><span class="identifier" id="com.ethanprentice.networkchat.message_router.EndpointManager$registerEndpoint(com.ethanprentice.networkchat.adt.Endpoint)/endpoint">endpoint</span><span class="symbol">:</span>&nbsp;<a href="../../com.ethanprentice.networkchat.adt/-endpoint/index.html"><span class="identifier">Endpoint</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Registers an <a href="../../com.ethanprentice.networkchat.adt/-endpoint/index.html">Endpoint</a> to a <a href="../../com.ethanprentice.networkchat.adt/-message-handler/index.html">MessageHandler</a> so that <a href="../../com.ethanprentice.networkchat.adt/-message/index.html">Message</a>s can be routed through the handler to the <a href="../../com.ethanprentice.networkchat.adt/-endpoint/index.html">Endpoint</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="register-handler.html">registerHandler</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">registerHandler</span><span class="symbol">(</span><span class="identifier" id="com.ethanprentice.networkchat.message_router.EndpointManager$registerHandler(com.ethanprentice.networkchat.adt.MessageHandler)/handler">handler</span><span class="symbol">:</span>&nbsp;<a href="../../com.ethanprentice.networkchat.adt/-message-handler/index.html"><span class="identifier">MessageHandler</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Registers a <a href="../../com.ethanprentice.networkchat.adt/-message-handler/index.html">MessageHandler</a> so that <a href="../-message-router/index.html">MessageRouter</a> knows it exists and can route messages to it</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

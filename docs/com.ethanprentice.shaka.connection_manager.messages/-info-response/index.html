@@ -1,0 +1,96 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>InfoResponse - </title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">com.ethanprentice.networkchat.connection_manager.messages</a>&nbsp;/&nbsp;<a href=".">InfoResponse</a><br/>
+<br/>
+<h1>InfoResponse</h1>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">InfoResponse</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../com.ethanprentice.shaka.adt/-serializable-message/index.html"><span class="identifier">SerializableMessage</span></a></code>
+<p>To be sent as a response to <a href="../-info-request/index.html">InfoRequest</a> to notify the target device that the current device is also running Shaka</p>
+<h3>Parameters</h3>
+
+<p><a name="ip"></a>
+<code>ip</code> - The ip of the current device
+<p><a name="port"></a>
+<code>port</code> - The port of the current device
+<p><a name="name"></a>
+<code>name</code> - The current user's display name to show the target who owns the device
+<p><a name="imgUrl"></a>
+<code>imgUrl</code> - The current user's display image's url to show the target who owns the device
+<p><strong>Author</strong><br/>
+Ethan Prentice</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-init-.html">&lt;init&gt;</a></td>
+<td>
+<code><span class="identifier">InfoResponse</span><span class="symbol">(</span><span class="identifier" id="com.ethanprentice.networkchat.connection_manager.messages.InfoResponse$<init>(kotlin.String, kotlin.Int, kotlin.String, kotlin.String)/ip">ip</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="com.ethanprentice.networkchat.connection_manager.messages.InfoResponse$<init>(kotlin.String, kotlin.Int, kotlin.String, kotlin.String)/port">port</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">, </span><span class="identifier" id="com.ethanprentice.networkchat.connection_manager.messages.InfoResponse$<init>(kotlin.String, kotlin.Int, kotlin.String, kotlin.String)/name">name</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="com.ethanprentice.networkchat.connection_manager.messages.InfoResponse$<init>(kotlin.String, kotlin.Int, kotlin.String, kotlin.String)/imgUrl">imgUrl</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span></code>
+<p>To be sent as a response to <a href="../-info-request/index.html">InfoRequest</a> to notify the target device that the current device is also running Shaka</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="endpoint-name.html">endpointName</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">endpointName</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="img-url.html">imgUrl</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">imgUrl</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="ip.html">ip</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">ip</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="name.html">name</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">name</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="port.html">port</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">port</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="to-json-string.html">toJsonString</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">toJsonString</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="get-from-json-string.html">getFromJsonString</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getFromJsonString</span><span class="symbol">(</span><span class="identifier" id="com.ethanprentice.networkchat.connection_manager.messages.InfoResponse.Companion$getFromJsonString(kotlin.String)/jsonString">jsonString</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">InfoResponse</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

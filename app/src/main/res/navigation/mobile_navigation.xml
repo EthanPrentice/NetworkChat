@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_scan_network">
+
+
+    <fragment
+        android:id="@+id/nav_scan_network"
+        android:name="com.ethanprentice.networkchat.activities.chat_activity.ui.scan_network.ScanNetworkFragment"
+        android:label="@string/menu_scan_network"
+        tools:layout="@layout/fragment_scan_network" />
+
+    <fragment
+        android:id="@+id/nav_chat"
+        android:name="com.ethanprentice.networkchat.activities.chat_activity.ui.chat.ChatFragment"
+        android:label="@string/menu_chat"
+        tools:layout="@layout/fragment_chat"/>
+
+    <fragment
+        android:id="@+id/nav_members"
+        android:name="com.ethanprentice.networkchat.activities.chat_activity.ui.members.MembersFragment"
+        android:label="@string/menu_members"
+        tools:layout="@layout/fragment_members" />
+
+    <fragment
+        android:id="@+id/nav_group_settings"
+        android:name="com.ethanprentice.networkchat.activities.chat_activity.ui.group_settings.GroupSettingsFragment"
+        android:label="@string/menu_group_settings"
+        tools:layout="@layout/fragment_group_settings" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.ethanprentice.networkchat.activities.chat_activity.ui.settings.SettingsFragment"
+        android:label="@string/menu_settings"
+        tools:layout="@layout/fragment_settings" />
+
+</navigation>

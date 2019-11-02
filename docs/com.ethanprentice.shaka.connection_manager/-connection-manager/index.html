@@ -1,0 +1,78 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ConnectionManager - </title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">com.ethanprentice.networkchat.connection_manager</a>&nbsp;/&nbsp;<a href=".">ConnectionManager</a><br/>
+<br/>
+<h1>ConnectionManager</h1>
+<code><span class="keyword">object </span><span class="identifier">ConnectionManager</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span></code>
+<p>Manages socket connections and streams</p>
+<p><strong>Author</strong><br/>
+Ethan Prentice</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="is-server.html">isServer</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">isServer</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="close-all.html">closeAll</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">closeAll</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Closes all UDP, TCP server, and client sockets</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="get-device-ip.html">getDeviceIp</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getDeviceIp</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="http://docs.oracle.com/javase/6/docs/api/java/net/InetAddress.html"><span class="identifier">InetAddress</span></a></code>
+<p>Returns local IP of the device</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="open-client-socket.html">openClientSocket</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">openClientSocket</span><span class="symbol">(</span><span class="identifier" id="com.ethanprentice.networkchat.connection_manager.ConnectionManager$openClientSocket(kotlin.String, kotlin.Int)/ip">ip</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="com.ethanprentice.networkchat.connection_manager.ConnectionManager$openClientSocket(kotlin.String, kotlin.Int)/port">port</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Creates and opens <a href="#">clientSocket</a> to connect to the ip and port provided</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="open-tcp-socket.html">openTcpSocket</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">openTcpSocket</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.ethanprentice.shaka.adt/-shaka-server-socket/index.html"><span class="identifier">ShakaServerSocket</span></a></code>
+<p>Opens a TCP socket returned by <a href="#">socketFactory</a> and returns it</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="scan-network.html">scanNetwork</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">scanNetwork</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Starts a task to scan the network for other devices running Shaka, sending relevant messages to MessageHandlers</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="write-to-tcp.html">writeToTcp</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">writeToTcp</span><span class="symbol">(</span><span class="identifier" id="com.ethanprentice.networkchat.connection_manager.ConnectionManager$writeToTcp(com.ethanprentice.networkchat.adt.SerializableMessage)/msg">msg</span><span class="symbol">:</span>&nbsp;<a href="../../com.ethanprentice.shaka.adt/-serializable-message/index.html"><span class="identifier">SerializableMessage</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

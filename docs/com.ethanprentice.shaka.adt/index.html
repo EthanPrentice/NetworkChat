@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.ethanprentice.networkchat.adt - </title>
+<link rel="stylesheet" href="..\style.css">
+</HEAD>
+<BODY>
+<a href=".">com.ethanprentice.networkchat.adt</a><br/>
+<br/>
+<h2>Package com.ethanprentice.networkchat.adt</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-callback/index.html">Callback</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Callback</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="-endpoint/index.html">Endpoint</a></td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Endpoint</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Comparable</span><span class="symbol">&lt;</span><a href="-endpoint/index.html"><span class="identifier">Endpoint</span></a><span class="symbol">&gt;</span></code>
+<p>Specified the <a href="#">MessageHandler</a> that <a href="#">Messages</a> can be redirected to as well as the Endpoint name
+and the <a href="-message/index.html">Message</a> associated with the <a href="-endpoint/index.html">Endpoint</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-endpoint-info/index.html">EndpointInfo</a></td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">EndpointInfo</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span></code>
+<p>More verbose information extracted from the <a href="-endpoint/index.html">Endpoint</a> string</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-message/index.html">Message</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">Message</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span></code>
+<p>Base class for Messages sent / received internally and externally
+Is <a href="#">Serializable</a> since <a href="-serializable-message/index.html">SerializableMessage</a> inherits this and it must also be <a href="#">Serializable</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-serializable-message/index.html">SerializableMessage</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">SerializableMessage</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-message/index.html"><span class="identifier">Message</span></a></code>
+<p>Base class for <a href="#">Messages</a> sent / received from external sources
+TODO: Add custom serializers to SerializableMessages to improve polymorphism (can't have vals in constructor here or else it won't be default serializable)</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-shaka-server-socket/index.html">ShakaServerSocket</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ShakaServerSocket</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/net/ServerSocket.html"><span class="identifier">ServerSocket</span></a></code>
+<p>Class to handle operations and multithreading for <a href="http://docs.oracle.com/javase/6/docs/api/java/net/ServerSocket.html">ServerSocket</a>s and their client <a href="http://docs.oracle.com/javase/6/docs/api/java/net/Socket.html">Socket</a>s</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-shaka-socket/index.html">ShakaSocket</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ShakaSocket</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/net/Socket.html"><span class="identifier">Socket</span></a></code></td>
+</tr>
+<tr>
+<td>
+<a href="-user-info/index.html">UserInfo</a></td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">UserInfo</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span></code>
+<p>User specific information like Spotify display name, profile picture urls, etc.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

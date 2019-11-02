@@ -1,0 +1,79 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>UdpListenerService - </title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">com.ethanprentice.networkchat.connection_manager</a>&nbsp;/&nbsp;<a href=".">UdpListenerService</a><br/>
+<br/>
+<h1>UdpListenerService</h1>
+<code><span class="keyword">class </span><span class="identifier">UdpListenerService</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span></code>
+<p>Listens for requests over UDP from clients that haven't been given a TCP socket yet
+This <a href="#">Service</a> should never be run more than once in parallel</p>
+<p><strong>Author</strong><br/>
+Ethan Prentice</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-init-.html">&lt;init&gt;</a></td>
+<td>
+<code><span class="identifier">UdpListenerService</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>Listens for requests over UDP from clients that haven't been given a TCP socket yet
+This <a href="#">Service</a> should never be run more than once in parallel</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="on-bind.html">onBind</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onBind</span><span class="symbol">(</span><span class="identifier" id="com.ethanprentice.networkchat.connection_manager.UdpListenerService$onBind()/p0">p0</span><span class="symbol">:</span>&nbsp;<span class="identifier">&lt;ERROR CLASS&gt;</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="on-destroy.html">onDestroy</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onDestroy</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="on-start-command.html">onStartCommand</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onStartCommand</span><span class="symbol">(</span><span class="identifier" id="com.ethanprentice.networkchat.connection_manager.UdpListenerService$onStartCommand(, kotlin.Int, kotlin.Int)/intent">intent</span><span class="symbol">:</span>&nbsp;<span class="identifier">&lt;ERROR CLASS&gt;</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.ethanprentice.networkchat.connection_manager.UdpListenerService$onStartCommand(, kotlin.Int, kotlin.Int)/flags">flags</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">, </span><span class="identifier" id="com.ethanprentice.networkchat.connection_manager.UdpListenerService$onStartCommand(, kotlin.Int, kotlin.Int)/startId">startId</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="active.html">active</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">active</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="lock-obj.html">lockObj</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">lockObj</span><span class="symbol">: </span><a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html"><span class="identifier">Object</span></a></code></td>
+</tr>
+<tr>
+<td>
+<a href="port.html">port</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">port</span><span class="symbol">: </span><span class="identifier">Int</span><span class="symbol">?</span></code>
+<p>port that the UDP socket is open on.  When set to a non-null value lockObj is notified</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

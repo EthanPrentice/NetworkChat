@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.ethanprentice.networkchat.message_router - </title>
+<link rel="stylesheet" href="..\style.css">
+</HEAD>
+<BODY>
+<a href=".">com.ethanprentice.networkchat.message_router</a><br/>
+<br/>
+<h2>Package com.ethanprentice.networkchat.message_router</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-endpoint-manager/index.html">EndpointManager</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">EndpointManager</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span></code>
+<p>Allows the dynamic registering of MessageHandlers and Endpoints so MessageManager is not directly dependent on any components
+This also helps to allow each MessageHandler to operate completely independently of any components in-case of addition of new components or deprecation</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-message-factory/index.html">MessageFactory</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">MessageFactory</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="-message-handler/index.html">MessageHandler</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">MessageHandler</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Comparable</span><span class="symbol">&lt;</span><a href="-message-handler/index.html"><span class="identifier">MessageHandler</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a receiver / handler that MessageManager can send messages to
+This keeps the message logic within components and allows the MessageManager to dynamically register handlers / endpoints</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-message-manager/index.html">MessageManager</a></td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">MessageManager</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span></code>
+<p>Acts as a middleware so all components send messages to a single point and receive from a single point (other than messages received from external devices)
+This reduces interdependencies between components</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

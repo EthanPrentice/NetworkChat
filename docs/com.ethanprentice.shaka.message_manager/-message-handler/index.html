@@ -1,0 +1,102 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MessageHandler - </title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">com.ethanprentice.networkchat.message_router</a>&nbsp;/&nbsp;<a href=".">MessageHandler</a><br/>
+<br/>
+<h1>MessageHandler</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">MessageHandler</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Comparable</span><span class="symbol">&lt;</span><span class="identifier">MessageHandler</span><span class="symbol">&gt;</span></code>
+<p>Represents a receiver / handler that MessageManager can send messages to
+This keeps the message logic within components and allows the MessageManager to dynamically register handlers / endpoints</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-init-.html">&lt;init&gt;</a></td>
+<td>
+<code><span class="identifier">MessageHandler</span><span class="symbol">(</span><span class="identifier" id="com.ethanprentice.networkchat.adt.MessageHandler$<init>(com.ethanprentice.networkchat.message_router.MessageRouter)/msgManager">msgManager</span><span class="symbol">:</span>&nbsp;<a href="../-message-manager/index.html"><span class="identifier">MessageManager</span></a><span class="symbol">)</span></code>
+<p>Represents a receiver / handler that MessageManager can send messages to
+This keeps the message logic within components and allows the MessageManager to dynamically register handlers / endpoints</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="handler-name.html">handlerName</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">handlerName</span><span class="symbol">: </span><span class="identifier">String</span></code>
+<p>Used to compare handlers to prevent registering duplicates and for processing endpointName strings</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="msg-manager.html">msgManager</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">msgManager</span><span class="symbol">: </span><a href="../-message-manager/index.html"><span class="identifier">MessageManager</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="compare-to.html">compareTo</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">compareTo</span><span class="symbol">(</span><span class="identifier" id="com.ethanprentice.networkchat.adt.MessageHandler$compareTo(com.ethanprentice.networkchat.adt.MessageHandler)/other">other</span><span class="symbol">:</span>&nbsp;<span class="identifier">MessageHandler</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code>
+<p>Compares the MessageHandler's based on <a href="handler-name.html">handlerName</a> equivalence</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="equals.html">equals</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">equals</span><span class="symbol">(</span><span class="identifier" id="com.ethanprentice.networkchat.adt.MessageHandler$equals(kotlin.Any)/other">other</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="handle-message.html">handleMessage</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">handleMessage</span><span class="symbol">(</span><span class="identifier" id="com.ethanprentice.networkchat.adt.MessageHandler$handleMessage(com.ethanprentice.networkchat.adt.Message)/_message">_message</span><span class="symbol">:</span>&nbsp;<a href="../../com.ethanprentice.shaka.adt/-message/index.html"><span class="identifier">Message</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Receives messages from the MessageManager to be processed by the component</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="register.html">register</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">register</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Registers the MessageHandler and it's Endpoints with MessageManager</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../../com.ethanprentice.shaka.connection_manager/-cm-message-handler/index.html">CmMessageHandler</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">CmMessageHandler</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">MessageHandler</span></code>
+<p>Handles messages that are redirected to ConnectionManager by MessageManager</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.ethanprentice.shaka.ui/-ui-message-handler/index.html">UiMessageHandler</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">UiMessageHandler</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">MessageHandler</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

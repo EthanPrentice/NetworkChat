@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CreateGroupFragment.CreateGroupFragListener - </title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">com.ethanprentice.networkchat.ui.frags</a>&nbsp;/&nbsp;<a href="../index.html">CreateGroupFragment</a>&nbsp;/&nbsp;<a href=".">CreateGroupFragListener</a><br/>
+<br/>
+<h1>CreateGroupFragListener</h1>
+<code><span class="keyword">interface </span><span class="identifier">CreateGroupFragListener</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span></code>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="on-create-group.html">onCreateGroup</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onCreateGroup</span><span class="symbol">(</span><span class="identifier" id="com.ethanprentice.networkchat.ui.frags.CreateGroupFragment.CreateGroupFragListener$onCreateGroup(com.ethanprentice.networkchat.ui.frags.CreateGroupFragment, com.ethanprentice.networkchat.adt.GroupInfo)/frag">frag</span><span class="symbol">:</span>&nbsp;<a href="../index.html"><span class="identifier">CreateGroupFragment</span></a><span class="symbol">, </span><span class="identifier" id="com.ethanprentice.networkchat.ui.frags.CreateGroupFragment.CreateGroupFragListener$onCreateGroup(com.ethanprentice.networkchat.ui.frags.CreateGroupFragment, com.ethanprentice.networkchat.adt.GroupInfo)/gInfo">gInfo</span><span class="symbol">:</span>&nbsp;<a href="../../../com.ethanprentice.networkchat.adt/-group-info/index.html"><span class="identifier">GroupInfo</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../../../com.ethanprentice.networkchat.activities.chat_activity/-chat-activity/index.html">ChatActivity</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ChatActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../../com.ethanprentice.networkchat.adt/-shaka-activity/index.html"><span class="identifier">ShakaActivity</span></a><span class="symbol">, </span><a href="../../../com.ethanprentice.networkchat.activities.chat_activity.ui.scan_network/-scan-network-fragment/-scan-network-frag-listener.html"><span class="identifier">ScanNetworkFragListener</span></a><span class="symbol">, </span><span class="identifier">CreateGroupFragListener</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="../../../com.ethanprentice.networkchat.activities.chat_activity.ui.scan_network/-scan-network-fragment/index.html">ScanNetworkFragment</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ScanNetworkFragment</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">CreateGroupFragListener</span></code>
+<p>Sends a broadcast over the network to find other devices running Shaka and displays them to the user</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
