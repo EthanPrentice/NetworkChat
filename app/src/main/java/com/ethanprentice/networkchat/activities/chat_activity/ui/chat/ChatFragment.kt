@@ -29,10 +29,14 @@ class ChatFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         chat_msg_send_btn.setOnClickListener {
+            // send text in input field to the message handler to be sent to other devices
             thread(start=true) {
                 val text = chat_msg_input.text.toString()
                 val msg = ChatMessage(ConnectionManager.getDeviceIp().canonicalHostName, text, InfoManager.userInfo)
                 MessageRouter.handleMessage(msg)
+            }
+            activity?.runOnUiThread {
+                chat_msg_input?.text?.clear()
             }
         }
     }
@@ -50,9 +54,7 @@ class ChatFragment : Fragment() {
                 }
 
             })
-
         }
-
     }
 
     fun addChatMsgView(view: ChatMessageView) {

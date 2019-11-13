@@ -66,6 +66,7 @@ class CreateGroupFragment : Fragment() {
 
         createGroupBtn.setOnClickListener {
             val gInfo = GroupInfo(gNameInput.text.toString())
+            gNameInput?.text?.clear()
             listener?.onCreateGroup(this, gInfo)
         }
 

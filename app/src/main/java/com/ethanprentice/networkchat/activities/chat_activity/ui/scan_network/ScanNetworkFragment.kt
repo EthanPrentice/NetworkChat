@@ -1,5 +1,6 @@
 package com.ethanprentice.networkchat.activities.chat_activity.ui.scan_network
 
+import android.app.ActivityManager
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -18,6 +19,7 @@ import com.ethanprentice.networkchat.adt.GroupInfo
 import com.ethanprentice.networkchat.adt.SerializableMessage
 import com.ethanprentice.networkchat.adt.UserInfo
 import com.ethanprentice.networkchat.connection_manager.ConnectionManager
+import com.ethanprentice.networkchat.connection_manager.UdpListenerService
 import com.ethanprentice.networkchat.connection_manager.messages.ChatMessage
 import com.ethanprentice.networkchat.connection_manager.messages.InfoResponse
 import com.ethanprentice.networkchat.ui.frags.CreateGroupFragment
@@ -104,8 +106,26 @@ class ScanNetworkFragment : Fragment(), CreateGroupFragment.CreateGroupFragListe
 
         send_test_tcp_btn?.setOnClickListener {
             ConnectionManager.writeToTcp(TestMsg("This is a test!"))
+            printServices()
         }
+    }
 
+    private fun printServices() {
+        val am = MainApp.application?.applicationContext?.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager?
+
+        am?.let {
+            val l = it.getRunningServices(50)
+            val i = l.iterator()
+            while (i.hasNext()) {
+                val runningServiceInfo = i.next()
+
+                if (runningServiceInfo.foreground) {
+                    Log.i(TAG, "Service ${runningServiceInfo.service.className} is running in the foreground!")
+                } else {
+                    Log.i(TAG, "Service ${runningServiceInfo.service.className} is running in the background!")
+                }
+            }
+        }
     }
 
     private fun setCreateGroupOnClick() {

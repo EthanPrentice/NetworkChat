@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.net.wifi.WifiManager
+import android.os.Build
 import android.text.format.Formatter
 import com.ethanprentice.networkchat.MainApp
 import com.ethanprentice.networkchat.adt.SerializableMessage
@@ -54,15 +55,20 @@ object ConnectionManager {
      */
     private fun openUdpSocket() {
         val intent = Intent(MainApp.context.applicationContext, UdpListenerService::class.java)
-        MainApp.context.applicationContext.startService(intent)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            MainApp.context.applicationContext.startForegroundService(intent)
+        } else {
+            MainApp.context.applicationContext.startService(intent)
+        }
     }
 
 
     /**
-     * Closes the UDP socket, no reason to be called as of now
+     * Closes the UDP socket TODO: call when user becomes a client
      */
     private fun closeUdpSocket() {
-        val intent = Intent(MainApp.context, ConnectionManager::class.java)
+        val intent = Intent(MainApp.context.applicationContext, UdpListenerService::class.java)
         MainApp.context.stopService(intent)
     }
 
