@@ -21,6 +21,7 @@ import com.ethanprentice.networkchat.activities.chat_activity.ui.settings.Settin
 import com.ethanprentice.networkchat.adt.GroupInfo
 import com.ethanprentice.networkchat.adt.ShakaActivity
 import com.ethanprentice.networkchat.connection_manager.ConnectionManager
+import com.ethanprentice.networkchat.connection_manager.ConnectionState
 import com.ethanprentice.networkchat.connection_manager.messages.ChatBroadcast
 import com.ethanprentice.networkchat.connection_manager.messages.ChatMessage
 import com.ethanprentice.networkchat.connection_manager.messages.InfoResponse
@@ -94,8 +95,7 @@ class ChatActivity : ShakaActivity(), ScanNetworkFragment.ScanNetworkFragListene
                 .remove(frag)
                 .commit()
 
-        ConnectionManager.isServer = true
-        InfoManager.groupInfo = gInfo
+        ConnectionManager.stateManager.setToServer(gInfo)
     }
 
 

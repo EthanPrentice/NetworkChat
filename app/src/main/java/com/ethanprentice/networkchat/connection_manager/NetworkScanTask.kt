@@ -3,6 +3,7 @@ package com.ethanprentice.networkchat.connection_manager
 import android.os.AsyncTask
 import android.util.Log
 import com.ethanprentice.networkchat.connection_manager.messages.InfoRequest
+import com.ethanprentice.networkchat.information_manager.InfoManager
 import java.net.InetAddress
 import java.io.IOException
 import java.net.DatagramPacket
@@ -24,7 +25,7 @@ class NetworkScanTask : AsyncTask<Void, Void, Void>() {
             }
 
             val req = InfoRequest(
-                    ConnectionManager.getDeviceIp().hostAddress,
+                    InfoManager.getDeviceIp().hostAddress,
                     UdpListenerService.port!!
             )
 
@@ -50,7 +51,7 @@ class NetworkScanTask : AsyncTask<Void, Void, Void>() {
             val udpSocket = DatagramSocket(0)
             udpSocket.broadcast = true
 
-            val ipString = ConnectionManager.getDeviceIp().hostAddress
+            val ipString = InfoManager.getDeviceIp().hostAddress
             val prefix = ipString.substring(0, ipString.lastIndexOf(".") + 1)
 
             val address = InetAddress.getByName(prefix + "255")

@@ -47,7 +47,7 @@ class ChatMessageView(context: Context, val ip: String, message: String, private
 
         innerLayout.setBackgroundResource(R.drawable.rounded_rect_bg)
 
-        if (ip == ConnectionManager.getDeviceIp().canonicalHostName) {
+        if (ip == InfoManager.getDeviceIp().canonicalHostName) {
             (innerLayout.layoutParams as LayoutParams).addRule(ALIGN_PARENT_RIGHT)
             innerLayout.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.lightBlue))
         }

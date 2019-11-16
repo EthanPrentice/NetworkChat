@@ -49,7 +49,7 @@ class CmMessageHandler(msgRouter: MessageRouter) : MessageHandler(msgRouter) {
      * Sends an InfoResponse to let the requester know that this device is also running Shaka on the same network
      */
     private fun handleInfoReq(infoReq: InfoRequest) {
-        val address = ConnectionManager.getDeviceIp().hostAddress
+        val address = InfoManager.getDeviceIp().hostAddress
         val port = UdpListenerService.port
 
         if (port == null) {
@@ -57,16 +57,17 @@ class CmMessageHandler(msgRouter: MessageRouter) : MessageHandler(msgRouter) {
             return
         }
 
-        if (ConnectionManager.isServer) {
-            val deviceName = android.os.Build.MANUFACTURER + " - " + android.os.Build.MODEL
-            val displayName = InfoManager.userInfo.displayName
-            val groupName = InfoManager.groupInfo?.groupName
+        val deviceName = android.os.Build.MANUFACTURER + " - " + android.os.Build.MODEL
+        val displayName = InfoManager.userInfo.displayName
+        val groupName = InfoManager.groupInfo?.groupName
 
-            val message = InfoResponse(address, port, groupName ?: displayName ?: deviceName, "placeholder_url.png")
-            SendUdpMessage(InetAddress.getByName(infoReq.ip), infoReq.port, message).execute()
+        val message = InfoResponse(address, port, groupName ?: displayName ?: deviceName, "placeholder_url.png")
+
+        if (ConnectionManager.stateManager.currentState == ConnectionState.CLIENT) {
+            ConnectionManager.writeToTcp(message)
         }
-        else {
-            Log.v(TAG, "A device tried to connect when the device is not acting as a server. (Request discarded)")
+        else if (ConnectionManager.stateManager.currentState == ConnectionState.SERVER) {
+            SendUdpMessage(InetAddress.getByName(infoReq.ip), infoReq.port, message).execute()
         }
 
     }
@@ -78,11 +79,7 @@ class CmMessageHandler(msgRouter: MessageRouter) : MessageHandler(msgRouter) {
         val targetAddr = connReq.ip
         val targetPort = connReq.port
 
-        val message = ConnectionRequest(ConnectionManager.getDeviceIp().hostAddress, UdpListenerService.port!!, ConnType.CLIENT.name)
-
-        // Device is requesting to connect to the server, so it is not a server
-        ConnectionManager.isServer = false
-
+        val message = ConnectionRequest(InfoManager.getDeviceIp().hostAddress, UdpListenerService.port!!, ConnType.CLIENT.name)
         SendUdpMessage(InetAddress.getByName(targetAddr), targetPort, message).execute()
     }
 
@@ -92,13 +89,13 @@ class CmMessageHandler(msgRouter: MessageRouter) : MessageHandler(msgRouter) {
      */
     private fun handleConnReq(connReq: ConnectionRequest) {
 
-        if (!ConnectionManager.isServer) {
+        if (!ConnectionManager.isServer()) {
             Log.v(TAG, "A device tried to connect when the device is not acting as a server. (Request discarded)")
             return
         }
 
         // TODO: Authenticate / prompt user to accept the connection request instead of automatically accepting if in server mode
-        val address = ConnectionManager.getDeviceIp().hostAddress
+        val address = InfoManager.getDeviceIp().hostAddress
         val port = UdpListenerService.port
 
         if (port == null) {
@@ -106,7 +103,7 @@ class CmMessageHandler(msgRouter: MessageRouter) : MessageHandler(msgRouter) {
             return
         }
 
-        val message = if (ConnectionManager.isServer) {
+        val message = if (ConnectionManager.isServer()) {
             val socket: ShakaServerSocket = ConnectionManager.openTcpSocket()
             socket.accept()
             ConnectionResponse(address, port, true, socket.localPort, InfoManager.groupInfo)
@@ -135,11 +132,11 @@ class CmMessageHandler(msgRouter: MessageRouter) : MessageHandler(msgRouter) {
             if (connRsp.tcpPort == null) {
                 Log.e(TAG, "ConnectionResponse is invalid.  Cannot have a null tcpPort when accepted is true.")
             }
+            else if (connRsp.groupInfo == null) {
+                Log.e(TAG, "ConnectionResponse is invalid.  Cannot have a null groupInfo when accepted is true.")
+            }
             else {
-                // TODO: we should create a state manager to manage the CM before it becomes more advanced.  Then change this to use the state manager
-                ConnectionManager.isServer = false
-                ConnectionManager.openClientSocket(connRsp.ip, connRsp.tcpPort)
-                InfoManager.groupInfo = connRsp.groupInfo
+                ConnectionManager.stateManager.setToClient(connRsp.ip, connRsp.tcpPort, connRsp.groupInfo)
             }
         }
         else {

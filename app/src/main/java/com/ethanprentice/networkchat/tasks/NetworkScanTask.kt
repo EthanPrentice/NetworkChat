@@ -6,6 +6,7 @@ import com.ethanprentice.networkchat.connection_manager.CmConfig
 import com.ethanprentice.networkchat.connection_manager.ConnectionManager
 import com.ethanprentice.networkchat.connection_manager.UdpListenerService
 import com.ethanprentice.networkchat.connection_manager.messages.InfoRequest
+import com.ethanprentice.networkchat.information_manager.InfoManager
 import java.net.InetAddress
 import java.io.IOException
 import java.net.DatagramPacket
@@ -15,11 +16,9 @@ import java.net.SocketException
 /**
  * Scans the network for devices also running Shaka by sending a [InfoRequest] over a UDP broadcast
  *
- * @param connManager The [ConnectionManager] that
- *
  * @author Ethan Prentice
  */
-class NetworkScanTask(private val connManager: ConnectionManager) : AsyncTask<Void, Void, Void>() {
+class NetworkScanTask : AsyncTask<Void, Void, Void>() {
 
     private fun sendInfoReq(socket: DatagramSocket, address: InetAddress, port: Int) {
         try {
@@ -30,7 +29,7 @@ class NetworkScanTask(private val connManager: ConnectionManager) : AsyncTask<Vo
             }
 
             val req = InfoRequest(
-                    connManager.getDeviceIp().hostAddress,
+                    InfoManager.getDeviceIp().hostAddress,
                     UdpListenerService.port!!
             )
 
@@ -56,7 +55,7 @@ class NetworkScanTask(private val connManager: ConnectionManager) : AsyncTask<Vo
             val udpSocket = DatagramSocket(0)
             udpSocket.broadcast = true
 
-            val ipString = connManager.getDeviceIp().hostAddress
+            val ipString = InfoManager.getDeviceIp().hostAddress
             val prefix = ipString.substring(0, ipString.lastIndexOf(".") + 1)
 
             val address = InetAddress.getByName(prefix + "255")

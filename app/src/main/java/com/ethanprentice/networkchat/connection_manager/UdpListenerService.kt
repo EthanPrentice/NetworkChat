@@ -16,6 +16,7 @@ import java.net.DatagramPacket
 import java.net.DatagramSocket
 import java.net.SocketException
 import com.ethanprentice.networkchat.R
+import com.ethanprentice.networkchat.information_manager.InfoManager
 
 
 /**
@@ -57,7 +58,7 @@ class UdpListenerService : Service() {
         socket = socketFactory.getDatagramSocket()
         port = socket.localPort
 
-        Log.i(TAG, "Started UdpListenerService (${ConnectionManager.getDeviceIp()}) on port $port")
+        Log.i(TAG, "Started UdpListenerService (${InfoManager.getDeviceIp()}) on port $port")
 
         val packetReceiverThread = Thread(PacketReceiver(socket))
         packetReceiverThread.start()
@@ -158,7 +159,7 @@ class UdpListenerService : Service() {
                 Log.d(TAG, "Message received: $strMessage")
 
                 // Came from ourselves, likely a self-broadcast
-                if (dp.address == ConnectionManager.getDeviceIp()) {
+                if (dp.address == InfoManager.getDeviceIp()) {
                     Log.d(TAG, "Message from self, skipping.")
                     continue
                 }

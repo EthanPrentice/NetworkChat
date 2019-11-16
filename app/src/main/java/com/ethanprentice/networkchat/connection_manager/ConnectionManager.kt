@@ -1,19 +1,15 @@
 package com.ethanprentice.networkchat.connection_manager
 
 
-import android.content.Context
 import android.content.Intent
 import android.util.Log
-import android.net.wifi.WifiManager
 import android.os.Build
-import android.text.format.Formatter
 import com.ethanprentice.networkchat.MainApp
 import com.ethanprentice.networkchat.adt.SerializableMessage
 import com.ethanprentice.networkchat.adt.ShakaServerSocket
 import com.ethanprentice.networkchat.adt.ShakaSocket
 import com.ethanprentice.networkchat.information_manager.InfoManager
 import com.ethanprentice.networkchat.tasks.NetworkScanTask
-import java.net.*
 
 
 /**
@@ -23,20 +19,8 @@ import java.net.*
  */
 object ConnectionManager {
 
-    var isServer = false
-        set(_isServer) {
-            if (field == _isServer) return
-
-            field = _isServer
-            if (isServer) {
-                closeClientSocket()
-            }
-            else {
-                closeServerSockets()
-            }
-        }
-
     private val socketFactory = SocketFactory()
+    val stateManager = CmStateManager(this)
 
     private var clientSocket: ShakaSocket? = null
     private val tcpSockets = ArrayList<ShakaServerSocket>()
@@ -50,10 +34,18 @@ object ConnectionManager {
     }
 
 
+    fun isServer(): Boolean {
+        return stateManager.currentState == ConnectionState.SERVER
+    }
+
+    fun isConnected(): Boolean {
+        return stateManager.currentState != ConnectionState.UNCONNECTED
+    }
+
     /**
      * Opens a UDP socket
      */
-    private fun openUdpSocket() {
+    fun openUdpSocket() {
         val intent = Intent(MainApp.context.applicationContext, UdpListenerService::class.java)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -65,9 +57,9 @@ object ConnectionManager {
 
 
     /**
-     * Closes the UDP socket TODO: call when user becomes a client
+     * Closes the UDP socket
      */
-    private fun closeUdpSocket() {
+    fun closeUdpSocket() {
         val intent = Intent(MainApp.context.applicationContext, UdpListenerService::class.java)
         MainApp.context.stopService(intent)
     }
@@ -78,10 +70,10 @@ object ConnectionManager {
      * @return The created and [ShakaServerSocket]
      */
     fun openTcpSocket(): ShakaServerSocket {
-        // TODO: don't throw error here, we are throwing error on wrong device.  Log as a warning instead.
-        if (!isServer) {
-            throw IllegalStateException("Cannot open a server port when device is acting as a client")
+        check(stateManager.currentState == ConnectionState.SERVER) {
+            "Cannot create ServerSockets when not acting as a server!"
         }
+
         val socket = socketFactory.getServerSocket()
         socket.read()
         tcpSockets.add(socket)
@@ -93,7 +85,7 @@ object ConnectionManager {
     /**
      * Closes all server sockets and removes them from [tcpSockets]
      */
-    private fun closeServerSockets() {
+    fun closeServerSockets() {
         for (socket in tcpSockets) {
             socket.close()
         }
@@ -117,12 +109,12 @@ object ConnectionManager {
      * Sends [msg] to the group host if in client mode, or all connected devices otherwise
      */
     fun writeToTcp(msg: SerializableMessage) {
-        if (isServer) {
+        if (stateManager.currentState == ConnectionState.SERVER) {
             for (socket in tcpSockets) {
                 socket.write(msg)
             }
         }
-        else {
+        else if (stateManager.currentState == ConnectionState.CLIENT) {
             clientSocket?.write(msg)
         }
     }
@@ -133,8 +125,8 @@ object ConnectionManager {
      * @param port The port of the server socket on the target device we want to connect to
      */
     fun openClientSocket(ip: String, port: Int) {
-        if (isServer) {
-            throw IllegalStateException("Cannot open a client port when device is acting as a server")
+        check(stateManager.currentState == ConnectionState.CLIENT) {
+            "Cannot open a client socket when not acting as a client"
         }
         if (clientSocket != null) {
             Log.e(TAG, "Client socket must be closed before a new one can be opened")
@@ -149,7 +141,7 @@ object ConnectionManager {
     /**
      * Closes [clientSocket] and sets it to null
      */
-    private fun closeClientSocket() {
+    fun closeClientSocket() {
         clientSocket?.close()
         clientSocket = null
     }
@@ -159,18 +151,7 @@ object ConnectionManager {
      * Starts a task to scan the network for other devices running Shaka, sending relevant messages to MessageHandlers
      */
     fun scanNetwork() {
-        NetworkScanTask(this).execute()
-    }
-
-    /**
-     * Returns local IP of the device
-     * @returns [InetAddress] of the current device
-     */
-    fun getDeviceIp(): InetAddress {
-        val wm = MainApp.context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
-        val ipString = Formatter.formatIpAddress(wm.connectionInfo.ipAddress)
-
-        return InetAddress.getByName(ipString)
+        NetworkScanTask().execute()
     }
 
     /**
@@ -201,14 +182,14 @@ object ConnectionManager {
                 }
             }
 
-            clientSocket.let {
+            clientSocket?.let {
                 // clientSocket closed = disconnected from server
-                // set socket to null and groupInfo to null
-                if (it == null || it.isClosed) {
-                    it?.close()
-                    clientSocket = null
-                    if (!isServer) {
+                if (it.isClosed) {
+                    if (!isServer()) {
+                        stateManager.setToUnconnected()
                         InfoManager.groupInfo = null
+                    } else {
+                        clientSocket = null
                     }
                 }
             }
