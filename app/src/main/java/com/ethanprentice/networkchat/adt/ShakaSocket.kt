@@ -25,6 +25,10 @@ class ShakaSocket: Socket {
     }
 
     fun read() {
+        if (isReading) {
+            return
+        }
+
         thread(start = true) {
             val inStream = BufferedReader(InputStreamReader(inputStream))
 

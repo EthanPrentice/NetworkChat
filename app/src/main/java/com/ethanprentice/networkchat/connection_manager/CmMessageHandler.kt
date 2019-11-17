@@ -9,7 +9,7 @@ import com.ethanprentice.networkchat.adt.enums.ConnType
 import com.ethanprentice.networkchat.connection_manager.messages.*
 import com.ethanprentice.networkchat.information_manager.InfoManager
 import com.ethanprentice.networkchat.adt.MessageHandler
-import com.ethanprentice.networkchat.connection_manager.service.UdpListenerService
+import com.ethanprentice.networkchat.connection_manager.service.SocketListenerService
 import com.ethanprentice.networkchat.message_router.MessageRouter
 import com.ethanprentice.networkchat.tasks.SendUdpMessage
 import java.net.InetAddress
@@ -51,10 +51,10 @@ class CmMessageHandler(msgRouter: MessageRouter) : MessageHandler(msgRouter) {
      */
     private fun handleInfoReq(infoReq: InfoRequest) {
         val address = InfoManager.getDeviceIp().hostAddress
-        val port = UdpListenerService.port
+        val port = SocketListenerService.getUdpPort()
 
         if (port == null) {
-            Log.e(TAG, "Could not send the InfoResponse, UdpListenerService must be running!")
+            Log.e(TAG, "Could not send the InfoResponse, SocketListenerService must be running!")
             return
         }
 
@@ -80,8 +80,10 @@ class CmMessageHandler(msgRouter: MessageRouter) : MessageHandler(msgRouter) {
         val targetAddr = connReq.ip
         val targetPort = connReq.port
 
-        val message = ConnectionRequest(InfoManager.getDeviceIp().hostAddress, UdpListenerService.port!!, ConnType.CLIENT.name)
-        SendUdpMessage(InetAddress.getByName(targetAddr), targetPort, message).execute()
+        SocketListenerService.getUdpPort()?.let {
+            val message = ConnectionRequest(InfoManager.getDeviceIp().hostAddress, it, ConnType.CLIENT.name)
+            SendUdpMessage(InetAddress.getByName(targetAddr), targetPort, message).execute()
+        }
     }
 
     /**
@@ -97,10 +99,10 @@ class CmMessageHandler(msgRouter: MessageRouter) : MessageHandler(msgRouter) {
 
         // TODO: Authenticate / prompt user to accept the connection request instead of automatically accepting if in server mode
         val address = InfoManager.getDeviceIp().hostAddress
-        val port = UdpListenerService.port
+        val port = SocketListenerService.getUdpPort()
 
         if (port == null) {
-            Log.e(TAG, "Could not send the ConnectionResponse, UdpListenerService must be running!")
+            Log.e(TAG, "Could not send the ConnectionResponse, SocketListenerService must be running!")
             return
         }
 
@@ -122,10 +124,10 @@ class CmMessageHandler(msgRouter: MessageRouter) : MessageHandler(msgRouter) {
      *
      */
     private fun handleConnRsp(connRsp: ConnectionResponse) {
-        val port = UdpListenerService.port
+        val port = SocketListenerService.getUdpPort()
 
         if (port == null) {
-            Log.e(TAG, "Could not send the ConnectionResponse, UdpListenerService must be running!")
+            Log.e(TAG, "Could not send the ConnectionResponse, SocketListenerService must be running!")
             return
         }
 

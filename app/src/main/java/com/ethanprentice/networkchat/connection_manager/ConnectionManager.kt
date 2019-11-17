@@ -8,7 +8,7 @@ import com.ethanprentice.networkchat.MainApp
 import com.ethanprentice.networkchat.adt.SerializableMessage
 import com.ethanprentice.networkchat.adt.ShakaServerSocket
 import com.ethanprentice.networkchat.adt.ShakaSocket
-import com.ethanprentice.networkchat.connection_manager.service.UdpListenerService
+import com.ethanprentice.networkchat.connection_manager.service.SocketListenerService
 import com.ethanprentice.networkchat.information_manager.InfoManager
 import com.ethanprentice.networkchat.tasks.NetworkScanTask
 
@@ -23,14 +23,15 @@ object ConnectionManager {
     private val socketFactory = SocketFactory()
     val stateManager = CmStateManager(this)
 
-    private var clientSocket: ShakaSocket? = null
-    private val tcpSockets = ArrayList<ShakaServerSocket>()
-
-    private val socketCleanerThread = SocketCleanerThread(1000)
-
-
     init {
-        socketCleanerThread.start()
+        val intent = Intent(MainApp.context.applicationContext, SocketListenerService::class.java)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            MainApp.context.applicationContext.startForegroundService(intent)
+        } else {
+            MainApp.context.applicationContext.startService(intent)
+        }
+
         openUdpSocket()
     }
 
@@ -47,32 +48,15 @@ object ConnectionManager {
         return stateManager.currentState == ConnectionState.CLIENT
     }
 
-    /**
-     * Opens a UDP socket
-     */
-    fun openUdpSocket() {
-        val intent = Intent(MainApp.context.applicationContext, UdpListenerService::class.java)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            MainApp.context.applicationContext.startForegroundService(intent)
-        } else {
-            MainApp.context.applicationContext.startService(intent)
-        }
-    }
+    fun openUdpSocket() = SocketListenerService.udpListener.start()
+    fun closeUdpSocket() = SocketListenerService.udpListener.stop()
 
-
-    /**
-     * Closes the UDP socket
-     */
-    fun closeUdpSocket() {
-        val intent = Intent(MainApp.context.applicationContext, UdpListenerService::class.java)
-        MainApp.context.stopService(intent)
-    }
 
 
     /**
      * Opens a TCP socket returned by [socketFactory] and returns it
-     * @return The created and [ShakaServerSocket]
+     * @return The created [ShakaServerSocket]
      */
     fun openTcpSocket(): ShakaServerSocket {
         check(stateManager.currentState == ConnectionState.SERVER) {
@@ -80,49 +64,11 @@ object ConnectionManager {
         }
 
         val socket = socketFactory.getServerSocket()
-        socket.read()
-        tcpSockets.add(socket)
+        SocketListenerService.tcpListener.addServerSocket(socket)
 
         return socket
     }
 
-
-    /**
-     * Closes all server sockets and removes them from [tcpSockets]
-     */
-    fun closeServerSockets() {
-        for (socket in tcpSockets) {
-            socket.close()
-        }
-        tcpSockets.clear()
-    }
-
-    fun closeSocket(socket: ShakaSocket) {
-        if (socket == clientSocket) {
-            clientSocket?.close()
-            clientSocket = null
-        }
-    }
-
-    fun closeSocket(socket: ShakaServerSocket) {
-        tcpSockets.remove(socket)
-        socket.close()
-    }
-
-
-    /**
-     * Sends [msg] to the group host if in client mode, or all connected devices otherwise
-     */
-    fun writeToTcp(msg: SerializableMessage) {
-        if (stateManager.currentState == ConnectionState.SERVER) {
-            for (socket in tcpSockets) {
-                socket.write(msg)
-            }
-        }
-        else if (stateManager.currentState == ConnectionState.CLIENT) {
-            clientSocket?.write(msg)
-        }
-    }
 
     /**
      * Creates and opens [clientSocket] to connect to the ip and port provided
@@ -133,23 +79,25 @@ object ConnectionManager {
         check(stateManager.currentState == ConnectionState.CLIENT) {
             "Cannot open a client socket when not acting as a client"
         }
-        if (clientSocket != null) {
-            Log.e(TAG, "Client socket must be closed before a new one can be opened")
-            return
-        }
 
-        clientSocket = ShakaSocket(ip, port)
-        clientSocket?.read()
+        val socket = ShakaSocket(ip, port)
+        SocketListenerService.tcpListener.setClientSocket(socket)
     }
+
+
+    fun closeServerSockets() = SocketListenerService.tcpListener.closeServerSockets()
+
+    fun closeSocket(socket: ShakaSocket) = SocketListenerService.tcpListener.closeSocket(socket)
+
+    fun closeSocket(socket: ShakaServerSocket) = SocketListenerService.tcpListener.closeSocket(socket)
+
+    fun closeClientSocket() = SocketListenerService.tcpListener.closeClientSocket()
 
 
     /**
-     * Closes [clientSocket] and sets it to null
+     * Sends [msg] to the group host if in client mode, or all connected devices otherwise
      */
-    fun closeClientSocket() {
-        clientSocket?.close()
-        clientSocket = null
-    }
+    fun writeToTcp(msg: SerializableMessage) = SocketListenerService.tcpListener.writeToSockets(msg)
 
 
     /**
@@ -159,6 +107,7 @@ object ConnectionManager {
         NetworkScanTask().execute()
     }
 
+
     /**
      * Closes all UDP, TCP server, and client sockets
      */
@@ -167,41 +116,6 @@ object ConnectionManager {
         closeClientSocket()
         closeServerSockets()
     }
-
-
-    /**
-     * Returns a thread that will check for closed / unconnected sockets and remove them
-     *
-     * @param freqMs The frequency at which the check runs in milliseconds
-     * @return The thread that will clean sockets
-     */
-    private class SocketCleanerThread(val freqMs: Long) : Thread({
-        while (true) {
-            val iter = tcpSockets.listIterator()
-            while (iter.hasNext()) {
-                val socket = iter.next()
-
-                if (socket.isClosed) {
-                    socket.close()
-                    iter.remove()
-                }
-            }
-
-            clientSocket?.let {
-                // clientSocket closed = disconnected from server
-                if (it.isClosed) {
-                    if (!isServer()) {
-                        stateManager.setToUnconnected()
-                        InfoManager.groupInfo = null
-                    } else {
-                        clientSocket = null
-                    }
-                }
-            }
-
-            sleep(freqMs)
-        }
-    })
 
 
     private val TAG = ConnectionManager::class.java.canonicalName

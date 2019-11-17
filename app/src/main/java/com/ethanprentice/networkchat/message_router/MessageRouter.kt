@@ -24,8 +24,6 @@ object MessageRouter {
 
     val msgFactory = MessageFactory(this)
 
-    private val messageQueue = LinkedList<Message>()
-
     private val handlerThread = MessageHandlerThread()
 
 
@@ -43,29 +41,8 @@ object MessageRouter {
     fun handleMessage(_message: Message) {
         Log.v(TAG, "received $_message")
 
-        messageQueue.add(_message)
+        handlerThread.queueMessage(_message)
     }
-
-
-    private class MessageHandlerThread : Thread() {
-        val active = true
-
-        override fun run() {
-            var msg: Message
-
-            while (active) {
-                while (!messageQueue.isEmpty()) {
-                    msg = messageQueue.pop()
-
-                    val handler = endpointManager.getHandler(msg.endpointName)
-                    handler?.handleMessage(msg)
-                }
-                sleep(100)
-            }
-        }
-    }
-
 
     private val TAG = this::class.java.canonicalName
-
 }

@@ -24,7 +24,7 @@ abstract class ShakaActivity : AppCompatActivity() {
     }
 
     override fun onPause() {
-        clearCurrActivity()
+        // clearCurrActivity()
         super.onPause()
     }
 
