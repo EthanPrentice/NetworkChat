@@ -24,7 +24,7 @@
         </activity>
 
         <service
-            android:name=".connection_manager.UdpListenerService"
+            android:name=".connection_manager.service.UdpListenerService"
             android:stopWithTask="true"/>
 
     </application>

@@ -3,8 +3,7 @@ package com.ethanprentice.networkchat.tasks
 import android.os.AsyncTask
 import android.util.Log
 import com.ethanprentice.networkchat.connection_manager.CmConfig
-import com.ethanprentice.networkchat.connection_manager.ConnectionManager
-import com.ethanprentice.networkchat.connection_manager.UdpListenerService
+import com.ethanprentice.networkchat.connection_manager.service.UdpListenerService
 import com.ethanprentice.networkchat.connection_manager.messages.InfoRequest
 import com.ethanprentice.networkchat.information_manager.InfoManager
 import java.net.InetAddress

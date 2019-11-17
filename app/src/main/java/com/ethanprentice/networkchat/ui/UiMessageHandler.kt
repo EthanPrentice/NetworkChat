@@ -25,7 +25,7 @@ class UiMessageHandler(msgManager: MessageRouter) : MessageHandler(msgManager) {
         }
     }
 
-    fun handleInfoResponse(infoRsp: InfoResponse) {
+    private fun handleInfoResponse(infoRsp: InfoResponse) {
         MainApp.currActivity.let {
             if (it is ChatActivity) {
                 it.controller.addDeviceInfo(infoRsp)
@@ -33,10 +33,12 @@ class UiMessageHandler(msgManager: MessageRouter) : MessageHandler(msgManager) {
         }
     }
 
-    fun handleChatBroadcast(chatBroadcast: ChatBroadcast) {
+    private fun handleChatBroadcast(chatBroadcast: ChatBroadcast) {
         val activity = MainApp.currActivity
-        if (activity is ChatActivity) {
-            activity.controller.addChatMsgView(chatBroadcast)
+        activity?.let {
+            if (it is ChatActivity) {
+                it.controller.addChatMsgView(chatBroadcast)
+            }
         }
     }
 

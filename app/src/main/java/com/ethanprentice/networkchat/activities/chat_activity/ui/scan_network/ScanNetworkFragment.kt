@@ -8,23 +8,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
 import com.ethanprentice.networkchat.MainApp
 
 import com.ethanprentice.networkchat.R
-import com.ethanprentice.networkchat.activities.MainActivity
 import com.ethanprentice.networkchat.activities.chat_activity.ChatActivity
 import com.ethanprentice.networkchat.adt.GroupInfo
 import com.ethanprentice.networkchat.adt.SerializableMessage
-import com.ethanprentice.networkchat.adt.UserInfo
 import com.ethanprentice.networkchat.connection_manager.ConnectionManager
-import com.ethanprentice.networkchat.connection_manager.UdpListenerService
-import com.ethanprentice.networkchat.connection_manager.messages.ChatMessage
 import com.ethanprentice.networkchat.connection_manager.messages.InfoResponse
 import com.ethanprentice.networkchat.ui.frags.CreateGroupFragment
 import com.ethanprentice.networkchat.ui.views.DeviceInfoView
-import kotlinx.android.synthetic.main.fragment_chat.*
 import kotlinx.android.synthetic.main.fragment_scan_network.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json

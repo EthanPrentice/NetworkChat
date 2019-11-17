@@ -21,6 +21,11 @@
 
             android:hint="Display Name"
 
+            android:imeOptions="actionGo"
+
+            android:maxLines="1"
+            android:inputType="text"
+
             android:textSize="18sp"
 
             app:layout_constraintTop_toTopOf="parent"

@@ -24,8 +24,12 @@
         android:background="@android:drawable/editbox_background"
 
         android:hint="Group Name"
+        android:imeOptions="actionGo"
 
         android:textSize="18sp"
+
+        android:maxLines="1"
+        android:inputType="text"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

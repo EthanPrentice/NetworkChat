@@ -5,17 +5,19 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
-import com.ethanprentice.networkchat.MainApp
-
-import com.ethanprentice.networkchat.R
-import com.ethanprentice.networkchat.activities.MainActivity
 import com.ethanprentice.networkchat.adt.GroupInfo
+import android.view.inputmethod.InputMethodManager
+import com.ethanprentice.networkchat.R
+import com.ethanprentice.networkchat.activities.chat_activity.ChatActivity
+import com.ethanprentice.networkchat.activities.chat_activity.ui.chat.ChatFragment
 
 
 /**
@@ -64,13 +66,32 @@ class CreateGroupFragment : Fragment() {
             }
         })
 
+        gNameInput.setOnEditorActionListener { view, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_GO) {
+                createGroup(gNameInput)
+            }
+            true
+        }
+
         createGroupBtn.setOnClickListener {
-            val gInfo = GroupInfo(gNameInput.text.toString())
-            gNameInput?.text?.clear()
-            listener?.onCreateGroup(this, gInfo)
+            createGroup(gNameInput)
         }
 
         return layout
+    }
+
+
+    private fun createGroup(gNameInput: EditText) {
+        val gInfo = GroupInfo(gNameInput.text.toString())
+        gNameInput.text?.clear()
+        listener?.onCreateGroup(this, gInfo)
+
+        // hide keyboard
+        activity?.let {
+            if (it is ChatActivity) {
+                it.hideKeyboard()
+            }
+        }
     }
 
     override fun onAttach(context: Context) {

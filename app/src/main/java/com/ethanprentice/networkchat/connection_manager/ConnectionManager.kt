@@ -8,6 +8,7 @@ import com.ethanprentice.networkchat.MainApp
 import com.ethanprentice.networkchat.adt.SerializableMessage
 import com.ethanprentice.networkchat.adt.ShakaServerSocket
 import com.ethanprentice.networkchat.adt.ShakaSocket
+import com.ethanprentice.networkchat.connection_manager.service.UdpListenerService
 import com.ethanprentice.networkchat.information_manager.InfoManager
 import com.ethanprentice.networkchat.tasks.NetworkScanTask
 
@@ -40,6 +41,10 @@ object ConnectionManager {
 
     fun isConnected(): Boolean {
         return stateManager.currentState != ConnectionState.UNCONNECTED
+    }
+
+    fun isClient(): Boolean {
+        return stateManager.currentState == ConnectionState.CLIENT
     }
 
     /**

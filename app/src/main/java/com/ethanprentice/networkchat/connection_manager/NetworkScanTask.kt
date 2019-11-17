@@ -3,6 +3,7 @@ package com.ethanprentice.networkchat.connection_manager
 import android.os.AsyncTask
 import android.util.Log
 import com.ethanprentice.networkchat.connection_manager.messages.InfoRequest
+import com.ethanprentice.networkchat.connection_manager.service.UdpListenerService
 import com.ethanprentice.networkchat.information_manager.InfoManager
 import java.net.InetAddress
 import java.io.IOException

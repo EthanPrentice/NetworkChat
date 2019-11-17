@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
@@ -55,7 +57,7 @@ class LoginFragment : Fragment() {
             override fun afterTextChanged(p0: Editable?) { }
 
             override fun onTextChanged(str: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (str != null && 3 <= str.length && str.length <= 20) {
+                if (str != null && str.length in 3..20) {
                     loginBtn.enable()
                 }
                 else {
@@ -63,6 +65,17 @@ class LoginFragment : Fragment() {
                 }
             }
         })
+
+        nameInput.setOnEditorActionListener { view, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_GO) {
+                val nameText = nameInput.text.toString()
+                if (nameText.length in 3..20) {
+                    val uInfo = UserInfo(nameInput.text.toString(), null)
+                    listener?.onLogin(uInfo)
+                }
+            }
+            true
+        }
 
         loginBtn.setOnClickListener {
             val uInfo = UserInfo(nameInput.text.toString(), null)

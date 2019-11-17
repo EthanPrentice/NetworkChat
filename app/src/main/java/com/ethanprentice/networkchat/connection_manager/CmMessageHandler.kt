@@ -9,6 +9,7 @@ import com.ethanprentice.networkchat.adt.enums.ConnType
 import com.ethanprentice.networkchat.connection_manager.messages.*
 import com.ethanprentice.networkchat.information_manager.InfoManager
 import com.ethanprentice.networkchat.adt.MessageHandler
+import com.ethanprentice.networkchat.connection_manager.service.UdpListenerService
 import com.ethanprentice.networkchat.message_router.MessageRouter
 import com.ethanprentice.networkchat.tasks.SendUdpMessage
 import java.net.InetAddress
@@ -63,10 +64,10 @@ class CmMessageHandler(msgRouter: MessageRouter) : MessageHandler(msgRouter) {
 
         val message = InfoResponse(address, port, groupName ?: displayName ?: deviceName, "placeholder_url.png")
 
-        if (ConnectionManager.stateManager.currentState == ConnectionState.CLIENT) {
+        if (ConnectionManager.isClient()) {
             ConnectionManager.writeToTcp(message)
         }
-        else if (ConnectionManager.stateManager.currentState == ConnectionState.SERVER) {
+        else if (ConnectionManager.isServer()) {
             SendUdpMessage(InetAddress.getByName(infoReq.ip), infoReq.port, message).execute()
         }
 
@@ -149,14 +150,14 @@ class CmMessageHandler(msgRouter: MessageRouter) : MessageHandler(msgRouter) {
      * This will add the message to this devices UI, and broadcast the message to it's connected devices
      */
     private fun handleChatMsg(chatMsg: ChatMessage) {
+        val broadcast = ChatBroadcast(chatMsg.ip, chatMsg.chatText, chatMsg.sender)
+        ConnectionManager.writeToTcp(broadcast)
+
         MainApp.currActivity?.let {
             if (it is ChatActivity) {
                 it.controller.addChatMsgView(chatMsg)
             }
         }
-
-        val broadcast = ChatBroadcast(chatMsg.ip, chatMsg.chatText, chatMsg.sender)
-        ConnectionManager.writeToTcp(broadcast)
     }
 
 

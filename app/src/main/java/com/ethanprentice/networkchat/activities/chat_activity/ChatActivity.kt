@@ -2,6 +2,7 @@ package com.ethanprentice.networkchat.activities.chat_activity
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -12,6 +13,7 @@ import android.support.v4.widget.DrawerLayout
 import android.support.design.widget.NavigationView
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.view.inputmethod.InputMethodManager
 import com.ethanprentice.networkchat.R
 import com.ethanprentice.networkchat.activities.chat_activity.ui.chat.ChatFragment
 import com.ethanprentice.networkchat.activities.chat_activity.ui.group_settings.GroupSettingsFragment
@@ -96,6 +98,16 @@ class ChatActivity : ShakaActivity(), ScanNetworkFragment.ScanNetworkFragListene
                 .commit()
 
         ConnectionManager.stateManager.setToServer(gInfo)
+
+        findNavController(R.id.nav_host_fragment).navigate(R.id.nav_chat)
+    }
+
+
+    fun hideKeyboard() {
+        val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+        currentFocus?.let {
+            inputManager?.hideSoftInputFromWindow(it.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+        }
     }
 
 

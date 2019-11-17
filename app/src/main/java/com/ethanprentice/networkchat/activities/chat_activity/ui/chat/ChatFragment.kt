@@ -8,10 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.support.v4.app.Fragment
+import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import com.ethanprentice.networkchat.R
+import com.ethanprentice.networkchat.activities.chat_activity.ChatActivity
 import com.ethanprentice.networkchat.activities.chat_activity.ChatViewModel
+import com.ethanprentice.networkchat.adt.SerializableMessage
 import com.ethanprentice.networkchat.connection_manager.ConnectionManager
+import com.ethanprentice.networkchat.connection_manager.messages.ChatBroadcast
 import com.ethanprentice.networkchat.connection_manager.messages.ChatMessage
 import com.ethanprentice.networkchat.information_manager.InfoManager
 import com.ethanprentice.networkchat.message_router.MessageRouter
@@ -29,14 +33,22 @@ class ChatFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         chat_msg_send_btn.setOnClickListener {
+            val text = chat_msg_input.text.toString()
             // send text in input field to the message handler to be sent to other devices
+            // needs to be in separate thread since we are accessing device ip
             thread(start=true) {
-                val text = chat_msg_input.text.toString()
                 val msg = ChatMessage(InfoManager.getDeviceIp().canonicalHostName, text, InfoManager.userInfo)
                 MessageRouter.handleMessage(msg)
             }
             activity?.runOnUiThread {
                 chat_msg_input?.text?.clear()
+            }
+
+            // hide keyboard
+            activity?.let {
+                if (it is ChatActivity) {
+                    it.hideKeyboard()
+                }
             }
         }
     }
