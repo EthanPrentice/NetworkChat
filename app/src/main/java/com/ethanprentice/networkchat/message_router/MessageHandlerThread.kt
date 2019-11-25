@@ -18,8 +18,11 @@ class MessageHandlerThread : Thread() {
             while (!messageQueue.isEmpty()) {
                 msg = messageQueue.pop()
 
-                val handler = MessageRouter.endpointManager.getHandler(msg.endpointName)
-                handler?.handleMessage(msg)
+                val handlers = MessageRouter.endpointManager.getHandlers(msg.endpointName)
+
+                for (handler in handlers) {
+                    handler.handleMessage(msg)
+                }
             }
             sleep(100)
         }

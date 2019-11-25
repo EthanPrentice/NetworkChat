@@ -1,19 +1,17 @@
-package com.ethanprentice.networkchat.activities
+package com.ethanprentice.networkchat.ui.activities
 
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import com.ethanprentice.networkchat.R
-import com.ethanprentice.networkchat.activities.chat_activity.ChatActivity
-import com.ethanprentice.networkchat.adt.GroupInfo
+import com.ethanprentice.networkchat.ui.activities.chat_activity.ChatActivity
 import com.ethanprentice.networkchat.adt.UserInfo
-import com.ethanprentice.networkchat.connection_manager.ConnectionManager
 import com.ethanprentice.networkchat.connection_manager.messages.InfoResponse
 import com.ethanprentice.networkchat.information_manager.InfoManager
-import com.ethanprentice.networkchat.ui.frags.CreateGroupFragment
-import com.ethanprentice.networkchat.activities.chat_activity.ui.scan_network.ScanNetworkFragment
+import com.ethanprentice.networkchat.ui.activities.chat_activity.frags.scan_network.ScanNetworkFragment
 import com.ethanprentice.networkchat.adt.ShakaActivity
+import com.ethanprentice.networkchat.ui.activities.login_activity.LoginActivity
 
 
 class MainActivity : ShakaActivity(), ScanNetworkFragment.ScanNetworkFragListener {

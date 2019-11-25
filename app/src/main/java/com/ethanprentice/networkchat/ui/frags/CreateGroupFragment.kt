@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,10 +13,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
 import com.ethanprentice.networkchat.adt.GroupInfo
-import android.view.inputmethod.InputMethodManager
 import com.ethanprentice.networkchat.R
-import com.ethanprentice.networkchat.activities.chat_activity.ChatActivity
-import com.ethanprentice.networkchat.activities.chat_activity.ui.chat.ChatFragment
+import com.ethanprentice.networkchat.ui.activities.chat_activity.ChatActivity
 
 
 /**

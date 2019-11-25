@@ -1,4 +1,4 @@
-package com.ethanprentice.networkchat.activities.chat_activity
+package com.ethanprentice.networkchat.ui.activities.chat_activity
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel

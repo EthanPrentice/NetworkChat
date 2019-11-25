@@ -1,11 +1,11 @@
-package com.ethanprentice.networkchat.activities.chat_activity
+package com.ethanprentice.networkchat.ui.activities.chat_activity
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.support.design.widget.NavigationView
 import com.ethanprentice.networkchat.R
-import com.ethanprentice.networkchat.activities.chat_activity.ui.chat.ChatFragment
-import com.ethanprentice.networkchat.activities.chat_activity.ui.scan_network.ScanNetworkFragment
+import com.ethanprentice.networkchat.ui.activities.chat_activity.frags.chat.ChatFragment
+import com.ethanprentice.networkchat.ui.activities.chat_activity.frags.scan_network.ScanNetworkFragment
 import com.ethanprentice.networkchat.connection_manager.messages.ChatBroadcast
 import com.ethanprentice.networkchat.connection_manager.messages.ChatMessage
 import com.ethanprentice.networkchat.connection_manager.messages.InfoResponse

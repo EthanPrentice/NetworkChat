@@ -1,4 +1,4 @@
-package com.ethanprentice.networkchat.activities.chat_activity.ui.chat
+package com.ethanprentice.networkchat.ui.activities.chat_activity.frags.chat
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -8,14 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.support.v4.app.Fragment
-import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import com.ethanprentice.networkchat.R
-import com.ethanprentice.networkchat.activities.chat_activity.ChatActivity
-import com.ethanprentice.networkchat.activities.chat_activity.ChatViewModel
-import com.ethanprentice.networkchat.adt.SerializableMessage
-import com.ethanprentice.networkchat.connection_manager.ConnectionManager
-import com.ethanprentice.networkchat.connection_manager.messages.ChatBroadcast
+import com.ethanprentice.networkchat.ui.activities.chat_activity.ChatActivity
+import com.ethanprentice.networkchat.ui.activities.chat_activity.ChatViewModel
 import com.ethanprentice.networkchat.connection_manager.messages.ChatMessage
 import com.ethanprentice.networkchat.information_manager.InfoManager
 import com.ethanprentice.networkchat.message_router.MessageRouter
@@ -42,13 +38,6 @@ class ChatFragment : Fragment() {
             }
             activity?.runOnUiThread {
                 chat_msg_input?.text?.clear()
-            }
-
-            // hide keyboard
-            activity?.let {
-                if (it is ChatActivity) {
-                    it.hideKeyboard()
-                }
             }
         }
     }

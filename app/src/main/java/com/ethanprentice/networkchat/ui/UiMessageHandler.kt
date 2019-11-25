@@ -1,7 +1,7 @@
 package com.ethanprentice.networkchat.ui
 
 import com.ethanprentice.networkchat.MainApp
-import com.ethanprentice.networkchat.activities.chat_activity.ChatActivity
+import com.ethanprentice.networkchat.ui.activities.chat_activity.ChatActivity
 import com.ethanprentice.networkchat.adt.Message
 import com.ethanprentice.networkchat.connection_manager.messages.ChatBroadcast
 import com.ethanprentice.networkchat.connection_manager.messages.InfoResponse

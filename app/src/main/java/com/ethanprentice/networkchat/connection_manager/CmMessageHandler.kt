@@ -1,8 +1,9 @@
 package com.ethanprentice.networkchat.connection_manager
 
 import android.util.Log
+import androidx.navigation.findNavController
 import com.ethanprentice.networkchat.MainApp
-import com.ethanprentice.networkchat.activities.chat_activity.ChatActivity
+import com.ethanprentice.networkchat.ui.activities.chat_activity.ChatActivity
 import com.ethanprentice.networkchat.adt.Message
 import com.ethanprentice.networkchat.adt.ShakaServerSocket
 import com.ethanprentice.networkchat.adt.enums.ConnType

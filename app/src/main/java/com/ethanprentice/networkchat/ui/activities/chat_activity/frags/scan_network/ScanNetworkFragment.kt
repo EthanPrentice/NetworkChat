@@ -1,4 +1,4 @@
-package com.ethanprentice.networkchat.activities.chat_activity.ui.scan_network
+package com.ethanprentice.networkchat.ui.activities.chat_activity.frags.scan_network
 
 import android.app.ActivityManager
 import android.content.Context
@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import com.ethanprentice.networkchat.MainApp
 
 import com.ethanprentice.networkchat.R
-import com.ethanprentice.networkchat.activities.chat_activity.ChatActivity
+import com.ethanprentice.networkchat.ui.activities.chat_activity.ChatActivity
 import com.ethanprentice.networkchat.adt.GroupInfo
 import com.ethanprentice.networkchat.adt.SerializableMessage
 import com.ethanprentice.networkchat.connection_manager.ConnectionManager

@@ -71,7 +71,7 @@ object ConnectionManager {
 
 
     /**
-     * Creates and opens [clientSocket] to connect to the ip and port provided
+     * Creates and opens a client socket to connect to the ip and port provided
      * @param ip   The ip of the device to connect to
      * @param port The port of the server socket on the target device we want to connect to
      */

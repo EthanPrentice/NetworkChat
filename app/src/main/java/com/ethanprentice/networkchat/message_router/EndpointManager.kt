@@ -5,7 +5,8 @@ import com.ethanprentice.networkchat.adt.Endpoint
 import com.ethanprentice.networkchat.adt.EndpointInfo
 import com.ethanprentice.networkchat.adt.Message
 import com.ethanprentice.networkchat.adt.MessageHandler
-import java.util.*
+import kotlin.collections.HashMap
+import kotlin.collections.HashSet
 
 
 /**
@@ -16,7 +17,7 @@ import java.util.*
  */
 class EndpointManager {
 
-    private val endpointMap = TreeMap<MessageHandler, ArrayList<Endpoint>>()
+    private val endpointMap = HashMap<MessageHandler, HashSet<Endpoint>>()
 
     /**
      * Registers a [MessageHandler] so that [MessageRouter] knows it exists and can route messages to it
@@ -24,7 +25,7 @@ class EndpointManager {
      */
     fun registerHandler(handler: MessageHandler) {
         if (!endpointMap.containsKey(handler)) {
-            endpointMap[handler] = ArrayList()
+            endpointMap[handler] = HashSet()
         }
         else {
             Log.w(TAG, "${handler.handlerName} is already registered")
@@ -50,28 +51,31 @@ class EndpointManager {
     /**
      * Gets the handler associated with the provided [endpoint]
      * @param endpoint The endpointName whose handler we need to return
-     * @return the handler of the provided endpointName
+     * @return the handlers of the provided endpointName
      */
-    fun getHandler(endpoint: Endpoint): MessageHandler? {
-        return getHandler(endpoint.name)
+    fun getHandlers(endpoint: Endpoint): HashSet<MessageHandler> {
+        return getHandlers(endpoint.name)
     }
 
     /**
      * Gets the handler associated with the provided [endpointName]
      * @param endpointName The name of the [Endpoint] whose [MessageHandler] we need to return
-     * @return the handler of the [Endpoint] with name [endpointName]
+     * @return the handlers of the [Endpoint] with name [endpointName]
      */
-    fun getHandler(endpointName: String): MessageHandler? {
+    fun getHandlers(endpointName: String): HashSet<MessageHandler> {
         val handlerName = EndpointInfo.fromString(endpointName).handler
         val handlerNode = endpointMap.keys.filter { it.handlerName == handlerName }
 
-        return if (handlerNode.isEmpty()) {
+        val handlers = HashSet<MessageHandler>()
+
+        if (handlerNode.isEmpty()) {
             Log.e(TAG, "MessageHandler $handlerName is not registered or does not exist")
-            null
         }
         else {
-            handlerNode[0]
+            handlers.add(handlerNode[0])
         }
+
+        return handlers
     }
 
     /**
@@ -82,7 +86,7 @@ class EndpointManager {
     fun getEndpoint(endpointName: String): Endpoint? {
         val eInfo = EndpointInfo.fromString(endpointName)
 
-        var handlerEndpoints: ArrayList<Endpoint>? = null
+        var handlerEndpoints: HashSet<Endpoint>? = null
 
         for (mHandler in endpointMap.keys) {
             if (mHandler.handlerName == eInfo.handler) {

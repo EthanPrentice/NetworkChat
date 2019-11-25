@@ -9,9 +9,8 @@ import android.os.IBinder
 import android.support.annotation.RequiresApi
 import android.support.v4.app.NotificationCompat
 import android.util.Log
-import com.ethanprentice.networkchat.activities.chat_activity.ChatActivity
+import com.ethanprentice.networkchat.ui.activities.chat_activity.ChatActivity
 import com.ethanprentice.networkchat.R
-import java.util.concurrent.locks.ReentrantLock
 
 
 /**

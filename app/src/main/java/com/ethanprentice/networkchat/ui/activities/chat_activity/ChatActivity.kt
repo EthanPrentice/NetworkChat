@@ -1,7 +1,5 @@
-package com.ethanprentice.networkchat.activities.chat_activity
+package com.ethanprentice.networkchat.ui.activities.chat_activity
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import androidx.navigation.findNavController
@@ -11,25 +9,15 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import android.support.v4.widget.DrawerLayout
 import android.support.design.widget.NavigationView
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.inputmethod.InputMethodManager
 import com.ethanprentice.networkchat.R
-import com.ethanprentice.networkchat.activities.chat_activity.ui.chat.ChatFragment
-import com.ethanprentice.networkchat.activities.chat_activity.ui.group_settings.GroupSettingsFragment
-import com.ethanprentice.networkchat.activities.chat_activity.ui.members.MembersFragment
-import com.ethanprentice.networkchat.activities.chat_activity.ui.scan_network.ScanNetworkFragment
-import com.ethanprentice.networkchat.activities.chat_activity.ui.settings.SettingsFragment
+import com.ethanprentice.networkchat.ui.activities.chat_activity.frags.scan_network.ScanNetworkFragment
 import com.ethanprentice.networkchat.adt.GroupInfo
 import com.ethanprentice.networkchat.adt.ShakaActivity
 import com.ethanprentice.networkchat.connection_manager.ConnectionManager
-import com.ethanprentice.networkchat.connection_manager.ConnectionState
-import com.ethanprentice.networkchat.connection_manager.messages.ChatBroadcast
-import com.ethanprentice.networkchat.connection_manager.messages.ChatMessage
-import com.ethanprentice.networkchat.connection_manager.messages.InfoResponse
 import com.ethanprentice.networkchat.information_manager.InfoManager
 import com.ethanprentice.networkchat.ui.frags.CreateGroupFragment
-import com.ethanprentice.networkchat.ui.views.ChatMessageView
 
 class ChatActivity : ShakaActivity(), ScanNetworkFragment.ScanNetworkFragListener, CreateGroupFragment.CreateGroupFragListener {
 
@@ -37,11 +25,11 @@ class ChatActivity : ShakaActivity(), ScanNetworkFragment.ScanNetworkFragListene
     lateinit var controller: ChatController
 
     private val onGroupJoinListener = Runnable {
-        inGroup()
+        joinedGroup()
     }
 
     private val onGroupLeftListener = Runnable {
-        notInGroup()
+        leftGroup()
     }
 
 
@@ -71,10 +59,10 @@ class ChatActivity : ShakaActivity(), ScanNetworkFragment.ScanNetworkFragListene
         InfoManager.addLeftGroupListener(onGroupLeftListener)
 
         if (InfoManager.inGroup) {
-            inGroup()
+            joinedGroup()
         }
         else {
-            notInGroup()
+            leftGroup()
         }
 
     }
@@ -111,18 +99,26 @@ class ChatActivity : ShakaActivity(), ScanNetworkFragment.ScanNetworkFragListene
     }
 
 
-    fun inGroup() {
-        controller.showNavDrawerItem(R.id.nav_chat)
-        controller.showNavDrawerItem(R.id.nav_group_settings)
-        controller.showNavDrawerItem(R.id.nav_members)
-        controller.hideNavDrawerItem(R.id.nav_scan_network)
+    private fun joinedGroup() {
+        runOnUiThread {
+            controller.showNavDrawerItem(R.id.nav_chat)
+            controller.showNavDrawerItem(R.id.nav_group_settings)
+            controller.showNavDrawerItem(R.id.nav_members)
+            controller.hideNavDrawerItem(R.id.nav_scan_network)
+
+            findNavController(R.id.nav_host_fragment).navigate(R.id.nav_chat)
+        }
     }
 
-    fun notInGroup() {
-        controller.showNavDrawerItem(R.id.nav_scan_network)
-        controller.hideNavDrawerItem(R.id.nav_chat)
-        controller.hideNavDrawerItem(R.id.nav_group_settings)
-        controller.hideNavDrawerItem(R.id.nav_members)
+    private fun leftGroup() {
+        runOnUiThread {
+            controller.showNavDrawerItem(R.id.nav_scan_network)
+            controller.hideNavDrawerItem(R.id.nav_chat)
+            controller.hideNavDrawerItem(R.id.nav_group_settings)
+            controller.hideNavDrawerItem(R.id.nav_members)
+
+            findNavController(R.id.nav_host_fragment).navigate(R.id.nav_scan_network)
+        }
     }
 
 }

@@ -1,4 +1,4 @@
-package com.ethanprentice.networkchat.activities.chat_activity.ui.group_settings
+package com.ethanprentice.networkchat.ui.activities.chat_activity.frags.group_settings
 
 import android.support.v4.app.Fragment
 
