@@ -8,7 +8,7 @@ import com.ethanprentice.networkchat.connection_manager.ConnectionManager
 import com.ethanprentice.networkchat.connection_manager.ConnectionState
 import com.ethanprentice.networkchat.information_manager.InfoManager
 
-class TcpListener {
+class TcpListener(private val cm: ConnectionManager) {
     private var clientSocket: ShakaSocket? = null
     private val tcpSockets = ArrayList<ShakaServerSocket>()
 
@@ -17,7 +17,6 @@ class TcpListener {
     init {
         socketCleanerThread.start()
     }
-
 
     fun setClientSocket(socket: ShakaSocket) {
         if (clientSocket != null) {
@@ -60,12 +59,12 @@ class TcpListener {
      * Sends [msg] to the group host if in client mode, or all connected devices otherwise
      */
     fun writeToSockets(msg: SerializableMessage) {
-        if (ConnectionManager.stateManager.currentState == ConnectionState.SERVER) {
+        if (cm.isServer()) {
             for (socket in tcpSockets) {
                 socket.write(msg)
             }
         }
-        else if (ConnectionManager.stateManager.currentState == ConnectionState.CLIENT) {
+        else if (cm.isClient()) {
             clientSocket?.write(msg)
         }
     }
@@ -92,8 +91,8 @@ class TcpListener {
             clientSocket?.let {
                 // clientSocket closed = disconnected from server
                 if (it.isClosed) {
-                    if (!ConnectionManager.isServer()) {
-                        ConnectionManager.stateManager.setToUnconnected()
+                    if (!cm.isServer()) {
+                        cm.stateManager.setToUnconnected()
                         InfoManager.groupInfo = null
                     } else {
                         clientSocket = null

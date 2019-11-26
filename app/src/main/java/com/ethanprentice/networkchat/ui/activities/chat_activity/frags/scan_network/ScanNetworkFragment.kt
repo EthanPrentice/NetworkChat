@@ -16,6 +16,7 @@ import com.ethanprentice.networkchat.adt.GroupInfo
 import com.ethanprentice.networkchat.adt.SerializableMessage
 import com.ethanprentice.networkchat.connection_manager.ConnectionManager
 import com.ethanprentice.networkchat.connection_manager.messages.InfoResponse
+import com.ethanprentice.networkchat.tasks.NetworkScanTask
 import com.ethanprentice.networkchat.ui.frags.CreateGroupFragment
 import com.ethanprentice.networkchat.ui.views.DeviceInfoView
 import kotlinx.android.synthetic.main.fragment_scan_network.*
@@ -29,6 +30,7 @@ import kotlinx.serialization.json.Json
  * @author Ethan Prentice
  */
 class ScanNetworkFragment : Fragment(), CreateGroupFragment.CreateGroupFragListener {
+
     private var listener: ScanNetworkFragListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -83,24 +85,13 @@ class ScanNetworkFragment : Fragment(), CreateGroupFragment.CreateGroupFragListe
 
     private fun setScanOnClick() {
         test_scan_btn?.setOnClickListener {
-            ConnectionManager.scanNetwork()
+            NetworkScanTask().execute()
             found_devices_ll.removeAllViews()
         }
     }
 
     private fun setSendTestOnClick() {
-        @Serializable
-        class TestMsg(val msg: String) : SerializableMessage() {
-            override fun toJsonString(): String {
-                return Json.stringify(serializer(), this)
-            }
-            override var endpointName = "none"
-        }
-
-        send_test_tcp_btn?.setOnClickListener {
-            ConnectionManager.writeToTcp(TestMsg("This is a test!"))
-            printServices()
-        }
+        // do nothing
     }
 
     private fun printServices() {

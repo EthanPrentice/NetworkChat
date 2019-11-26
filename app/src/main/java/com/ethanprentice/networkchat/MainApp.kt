@@ -10,10 +10,11 @@ class MainApp : Application() {
     override fun onCreate() {
         super.onCreate()
         application = this
+        connManager = ConnectionManager()
     }
 
     override fun onTerminate() {
-        ConnectionManager.closeAll()
+        connManager.closeAll()
         super.onTerminate()
     }
 
@@ -25,5 +26,10 @@ class MainApp : Application() {
 
         val context: Context
             get() = application!!.applicationContext
+
+
+        lateinit var connManager: ConnectionManager
+            private set
+
     }
 }

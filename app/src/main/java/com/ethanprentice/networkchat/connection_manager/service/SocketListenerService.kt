@@ -9,8 +9,11 @@ import android.os.IBinder
 import android.support.annotation.RequiresApi
 import android.support.v4.app.NotificationCompat
 import android.util.Log
+import com.ethanprentice.networkchat.MainApp
 import com.ethanprentice.networkchat.ui.activities.chat_activity.ChatActivity
 import com.ethanprentice.networkchat.R
+import com.ethanprentice.networkchat.connection_manager.ConnectionManager
+import java.util.concurrent.locks.ReentrantLock
 
 
 /**
@@ -21,10 +24,21 @@ import com.ethanprentice.networkchat.R
  */
 class SocketListenerService : Service() {
 
+    lateinit var cm: ConnectionManager
+
     override fun onCreate() {
         super.onCreate()
+
         Log.i(TAG, "Creating SocketListenerService")
         startForeground(FG_SERVICE_ID, getForegroundNotification())
+
+        cm = MainApp.connManager
+        tcpListener = TcpListener(cm)
+        udpListener = UdpListener(cm)
+
+        if (!cm.isClient()) {
+            cm.openUdpSocket()
+        }
     }
 
     override fun onBind(p0: Intent?): IBinder? {
@@ -34,7 +48,9 @@ class SocketListenerService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.i(TAG, "Started SocketListenerService")
 
-        udpListener.start()
+        if (!udpListener.active && !cm.isClient()) {
+            udpListener.start()
+        }
 
         return START_NOT_STICKY
     }
@@ -97,8 +113,11 @@ class SocketListenerService : Service() {
         private const val FG_SERVICE_ID = 1
         private const val NOTIF_CHANNEL_ID = "services"
 
-        val udpListener = UdpListener()
-        val tcpListener = TcpListener()
+        lateinit var udpListener: UdpListener
+            private set
+
+        lateinit var tcpListener: TcpListener
+            private set
 
         fun getUdpPort(): Int? {
             return udpListener.port

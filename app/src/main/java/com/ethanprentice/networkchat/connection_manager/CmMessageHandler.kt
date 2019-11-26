@@ -16,16 +16,16 @@ import com.ethanprentice.networkchat.tasks.SendUdpMessage
 import java.net.InetAddress
 
 /**
- * Handles messages that are redirected to ConnectionManager by MessageRouter
+ * Handles messages that are redirected to connManager by MessageRouter
  *
  * @author Ethan Prentice
  */
-class CmMessageHandler(msgRouter: MessageRouter) : MessageHandler(msgRouter) {
+class CmMessageHandler(private val cm: ConnectionManager, msgRouter: MessageRouter) : MessageHandler(msgRouter) {
 
     override val handlerName = "connection-manager"
 
     /**
-     * Registers all [ConnectionManager] related endpoints with the [MessageRouter] so [Message]s can be routed here
+     * Registers all [cm] related endpoints with the [MessageRouter] so [Message]s can be routed here
      */
     override fun register() {
         msgRouter.endpointManager.registerHandler(this)
@@ -65,17 +65,17 @@ class CmMessageHandler(msgRouter: MessageRouter) : MessageHandler(msgRouter) {
 
         val message = InfoResponse(address, port, groupName ?: displayName ?: deviceName, "placeholder_url.png")
 
-        if (ConnectionManager.isClient()) {
-            ConnectionManager.writeToTcp(message)
+        if (cm.isClient()) {
+            cm.writeToTcp(message)
         }
-        else if (ConnectionManager.isServer()) {
+        else if (cm.isServer()) {
             SendUdpMessage(InetAddress.getByName(infoReq.ip), infoReq.port, message).execute()
         }
 
     }
 
     /**
-     * Receives a ConnectionRequest internally to be redirected externally by ConnectionManager
+     * Receives a ConnectionRequest internally to be redirected externally by connManager
      */
     private fun sendConnReq(connReq: ConnectionRequest) {
         val targetAddr = connReq.ip
@@ -93,7 +93,7 @@ class CmMessageHandler(msgRouter: MessageRouter) : MessageHandler(msgRouter) {
      */
     private fun handleConnReq(connReq: ConnectionRequest) {
 
-        if (!ConnectionManager.isServer()) {
+        if (!cm.isServer()) {
             Log.v(TAG, "A device tried to connect when the device is not acting as a server. (Request discarded)")
             return
         }
@@ -107,8 +107,8 @@ class CmMessageHandler(msgRouter: MessageRouter) : MessageHandler(msgRouter) {
             return
         }
 
-        val message = if (ConnectionManager.isServer()) {
-            val socket: ShakaServerSocket = ConnectionManager.openTcpSocket()
+        val message = if (cm.isServer()) {
+            val socket: ShakaServerSocket = cm.openTcpSocket()
             socket.accept()
             ConnectionResponse(address, port, true, socket.localPort, InfoManager.groupInfo)
         }
@@ -140,7 +140,7 @@ class CmMessageHandler(msgRouter: MessageRouter) : MessageHandler(msgRouter) {
                 Log.e(TAG, "ConnectionResponse is invalid.  Cannot have a null groupInfo when accepted is true.")
             }
             else {
-                ConnectionManager.stateManager.setToClient(connRsp.ip, connRsp.tcpPort, connRsp.groupInfo)
+                cm.stateManager.setToClient(connRsp.ip, connRsp.tcpPort, connRsp.groupInfo)
             }
         }
         else {
@@ -154,7 +154,7 @@ class CmMessageHandler(msgRouter: MessageRouter) : MessageHandler(msgRouter) {
      */
     private fun handleChatMsg(chatMsg: ChatMessage) {
         val broadcast = ChatBroadcast(chatMsg.ip, chatMsg.chatText, chatMsg.sender)
-        ConnectionManager.writeToTcp(broadcast)
+        cm.writeToTcp(broadcast)
 
         MainApp.currActivity?.let {
             if (it is ChatActivity) {

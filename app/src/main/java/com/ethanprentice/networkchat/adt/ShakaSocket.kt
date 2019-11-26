@@ -12,12 +12,9 @@ import java.net.Socket
 import java.net.SocketException
 import kotlin.concurrent.thread
 
-class ShakaSocket: Socket {
+class ShakaSocket(private val cm: ConnectionManager, host: String, port: Int): Socket(host, port) {
 
     private var isReading = false
-
-    constructor(): super()
-    constructor(host: String, port: Int): super(host, port)
 
     override fun close() {
         isReading = false
@@ -38,7 +35,7 @@ class ShakaSocket: Socket {
                     val socketData = inStream.readLine()
                     Log.v(TAG, "Received data: $socketData (TCP port $localPort)")
                     if (socketData == null) {
-                        ConnectionManager.closeSocket(this)
+                        cm.closeSocket(this)
                         break
                     }
 
@@ -51,7 +48,7 @@ class ShakaSocket: Socket {
                 }
                 catch (e: SocketException) {
                     if (e.message == "Socket closed") {
-                        ConnectionManager.closeSocket(this)
+                        cm.closeSocket(this)
                     }
                     else {
                         Log.e(TAG, e.message, e)

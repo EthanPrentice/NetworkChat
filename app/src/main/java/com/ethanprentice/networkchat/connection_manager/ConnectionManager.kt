@@ -11,6 +11,7 @@ import com.ethanprentice.networkchat.adt.ShakaSocket
 import com.ethanprentice.networkchat.connection_manager.service.SocketListenerService
 import com.ethanprentice.networkchat.information_manager.InfoManager
 import com.ethanprentice.networkchat.tasks.NetworkScanTask
+import kotlin.concurrent.thread
 
 
 /**
@@ -18,9 +19,9 @@ import com.ethanprentice.networkchat.tasks.NetworkScanTask
  *
  * @author Ethan Prentice
  */
-object ConnectionManager {
+class ConnectionManager {
 
-    private val socketFactory = SocketFactory()
+    private val socketFactory = SocketFactory(this)
     val stateManager = CmStateManager(this)
 
     init {
@@ -31,8 +32,6 @@ object ConnectionManager {
         } else {
             MainApp.context.applicationContext.startService(intent)
         }
-
-        openUdpSocket()
     }
 
 
@@ -80,7 +79,7 @@ object ConnectionManager {
             "Cannot open a client socket when not acting as a client"
         }
 
-        val socket = ShakaSocket(ip, port)
+        val socket = ShakaSocket(this, ip, port)
         SocketListenerService.tcpListener.setClientSocket(socket)
     }
 
@@ -98,14 +97,6 @@ object ConnectionManager {
      * Sends [msg] to the group host if in client mode, or all connected devices otherwise
      */
     fun writeToTcp(msg: SerializableMessage) = SocketListenerService.tcpListener.writeToSockets(msg)
-
-
-    /**
-     * Starts a task to scan the network for other devices running Shaka, sending relevant messages to MessageHandlers
-     */
-    fun scanNetwork() {
-        NetworkScanTask().execute()
-    }
 
 
     /**

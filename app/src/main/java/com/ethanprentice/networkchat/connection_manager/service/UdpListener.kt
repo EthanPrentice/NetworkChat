@@ -2,6 +2,7 @@ package com.ethanprentice.networkchat.connection_manager.service
 
 import android.util.Log
 import com.ethanprentice.networkchat.adt.Message
+import com.ethanprentice.networkchat.connection_manager.ConnectionManager
 import com.ethanprentice.networkchat.connection_manager.SocketFactory
 import com.ethanprentice.networkchat.information_manager.InfoManager
 import com.ethanprentice.networkchat.message_router.MessageRouter
@@ -10,7 +11,7 @@ import java.net.DatagramSocket
 import java.net.SocketException
 
 
-class UdpListener {
+class UdpListener(cm: ConnectionManager) {
 
     var active = false
         private set
@@ -18,7 +19,7 @@ class UdpListener {
     var port: Int? = null
         private set
 
-    private val socketFactory = SocketFactory()
+    private val socketFactory = SocketFactory(cm)
 
     private lateinit var socket: DatagramSocket
 

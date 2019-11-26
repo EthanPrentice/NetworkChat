@@ -17,7 +17,7 @@ import java.lang.Exception
  *
  * @author Ethan Prentice
  */
-class ShakaServerSocket(port: Int) : ServerSocket(port) {
+class ShakaServerSocket(private val cm: ConnectionManager, port: Int) : ServerSocket(port) {
 
     private var isReading = false
     private var clientSocket: Socket? = null
@@ -79,7 +79,7 @@ class ShakaServerSocket(port: Int) : ServerSocket(port) {
                     val socketData = inStream.readLine()
                     Log.v(TAG, "Received data: $socketData (TCP port $localPort)")
                     if (socketData == null) {
-                        ConnectionManager.closeSocket(this)
+                        cm.closeSocket(this)
                         break
                     }
 
@@ -92,7 +92,7 @@ class ShakaServerSocket(port: Int) : ServerSocket(port) {
                 }
                 catch (e: SocketException) {
                     if (e.message == "Socket closed") {
-                        ConnectionManager.closeSocket(this)
+                        cm.closeSocket(this)
                     }
                     else {
                         Log.e(TAG, e.message, e)

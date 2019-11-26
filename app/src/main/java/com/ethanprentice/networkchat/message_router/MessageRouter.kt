@@ -1,6 +1,7 @@
 package com.ethanprentice.networkchat.message_router
 
 import android.util.Log
+import com.ethanprentice.networkchat.MainApp
 import com.ethanprentice.networkchat.adt.Message
 import com.ethanprentice.networkchat.connection_manager.CmMessageHandler
 import com.ethanprentice.networkchat.ui.UiMessageHandler
@@ -14,7 +15,7 @@ import com.ethanprentice.networkchat.ui.UiMessageHandler
 object MessageRouter {
 
     // MessageHandlers
-    private val cmMsgHandler = CmMessageHandler(this)
+    private val cmMsgHandler = CmMessageHandler(MainApp.connManager, this)
     private val uiMsgHandler = UiMessageHandler(this)
 
     // holds all of our registered MessageHandlers and their respective Endpoints

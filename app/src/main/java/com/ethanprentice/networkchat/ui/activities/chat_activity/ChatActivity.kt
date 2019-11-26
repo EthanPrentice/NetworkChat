@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout
 import android.support.design.widget.NavigationView
 import android.support.v7.widget.Toolbar
 import android.view.inputmethod.InputMethodManager
+import com.ethanprentice.networkchat.MainApp
 import com.ethanprentice.networkchat.R
 import com.ethanprentice.networkchat.ui.activities.chat_activity.frags.scan_network.ScanNetworkFragment
 import com.ethanprentice.networkchat.adt.GroupInfo
@@ -20,6 +21,8 @@ import com.ethanprentice.networkchat.information_manager.InfoManager
 import com.ethanprentice.networkchat.ui.frags.CreateGroupFragment
 
 class ChatActivity : ShakaActivity(), ScanNetworkFragment.ScanNetworkFragListener, CreateGroupFragment.CreateGroupFragListener {
+
+    private val cm = MainApp.connManager
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var controller: ChatController
@@ -85,7 +88,7 @@ class ChatActivity : ShakaActivity(), ScanNetworkFragment.ScanNetworkFragListene
                 .remove(frag)
                 .commit()
 
-        ConnectionManager.stateManager.setToServer(gInfo)
+        cm.stateManager.setToServer(gInfo)
 
         findNavController(R.id.nav_host_fragment).navigate(R.id.nav_chat)
     }
