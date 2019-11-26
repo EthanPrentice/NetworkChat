@@ -14,12 +14,12 @@ import com.ethanprentice.networkchat.ui.UiMessageHandler
  */
 object MessageRouter {
 
-    // MessageHandlers
-    private val cmMsgHandler = CmMessageHandler(MainApp.connManager, this)
-    private val uiMsgHandler = UiMessageHandler(this)
-
     // holds all of our registered MessageHandlers and their respective Endpoints
     val endpointManager = EndpointManager()
+
+    // MessageHandlers
+    private val cmMsgHandler = CmMessageHandler(MainApp.connManager, endpointManager)
+    private val uiMsgHandler = UiMessageHandler(endpointManager)
 
     val msgFactory = MessageFactory(this)
 
