@@ -8,31 +8,31 @@
 
     <fragment
         android:id="@+id/nav_scan_network"
-        android:name="com.ethanprentice.networkchat.activities.chat_activity.ui.scan_network.ScanNetworkFragment"
+        android:name="com.ethanprentice.networkchat.ui.activities.chat_activity.frags.scan_network.ScanNetworkFragment"
         android:label="@string/menu_scan_network"
         tools:layout="@layout/fragment_scan_network" />
 
     <fragment
         android:id="@+id/nav_chat"
-        android:name="com.ethanprentice.networkchat.activities.chat_activity.ui.chat.ChatFragment"
+        android:name="com.ethanprentice.networkchat.ui.activities.chat_activity.frags.chat.ChatFragment"
         android:label="@string/menu_chat"
         tools:layout="@layout/fragment_chat"/>
 
     <fragment
         android:id="@+id/nav_members"
-        android:name="com.ethanprentice.networkchat.activities.chat_activity.ui.members.MembersFragment"
+        android:name="com.ethanprentice.networkchat.ui.activities.chat_activity.frags.members.MembersFragment"
         android:label="@string/menu_members"
         tools:layout="@layout/fragment_members" />
 
     <fragment
         android:id="@+id/nav_group_settings"
-        android:name="com.ethanprentice.networkchat.activities.chat_activity.ui.group_settings.GroupSettingsFragment"
+        android:name="com.ethanprentice.networkchat.ui.activities.chat_activity.frags.group_settings.GroupSettingsFragment"
         android:label="@string/menu_group_settings"
         tools:layout="@layout/fragment_group_settings" />
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.ethanprentice.networkchat.activities.chat_activity.ui.settings.SettingsFragment"
+        android:name="com.ethanprentice.networkchat.ui.activities.chat_activity.frags.settings.SettingsFragment"
         android:label="@string/menu_settings"
         tools:layout="@layout/fragment_settings" />
 
