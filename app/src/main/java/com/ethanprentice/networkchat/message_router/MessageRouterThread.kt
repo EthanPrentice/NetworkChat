@@ -3,7 +3,7 @@ package com.ethanprentice.networkchat.message_router
 import com.ethanprentice.networkchat.adt.Message
 import java.util.*
 
-class MessageHandlerThread : Thread() {
+class MessageRouterThread : Thread() {
     val active = true
     private val messageQueue = LinkedList<Message>()
 

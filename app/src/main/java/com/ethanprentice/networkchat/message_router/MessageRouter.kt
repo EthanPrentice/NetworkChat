@@ -4,8 +4,6 @@ import android.util.Log
 import com.ethanprentice.networkchat.adt.Message
 import com.ethanprentice.networkchat.connection_manager.CmMessageHandler
 import com.ethanprentice.networkchat.ui.UiMessageHandler
-import java.util.*
-import kotlin.concurrent.thread
 
 /**
  * Acts as a middleware so all components send messages to a single point and receive from a single point (other than messages received from external devices)
@@ -24,7 +22,7 @@ object MessageRouter {
 
     val msgFactory = MessageFactory(this)
 
-    private val handlerThread = MessageHandlerThread()
+    private val handlerThread = MessageRouterThread()
 
 
     init {
