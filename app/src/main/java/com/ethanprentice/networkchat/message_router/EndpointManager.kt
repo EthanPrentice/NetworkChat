@@ -48,6 +48,23 @@ class EndpointManager {
     }
 
 
+    fun containsHandler(handler: MessageHandler): Boolean {
+        return endpointMap.containsKey(handler)
+    }
+
+    fun containsEndpoint(endpoint: Endpoint): Boolean {
+        for (mHandler in endpointMap.keys) {
+            if (mHandler.handlerName == endpoint.getEndpointInfo().handler) {
+                endpointMap[mHandler]?.let {
+                    return it.contains(endpoint)
+                }
+                return false
+            }
+        }
+        return false
+    }
+
+
     /**
      * Gets the handler associated with the provided [endpoint]
      * @param endpoint The endpointName whose handler we need to return

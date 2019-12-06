@@ -1,6 +1,6 @@
 package com.ethanprentice.networkchat.adt
 
-import com.ethanprentice.networkchat.message_router.MessageRouter
+import com.ethanprentice.networkchat.message_router.EndpointManager
 
 
 /**
@@ -9,7 +9,7 @@ import com.ethanprentice.networkchat.message_router.MessageRouter
  *
  * @property handlerName Used to compare handlers to prevent registering duplicates and for processing endpointName strings
  */
-abstract class MessageHandler(protected val msgRouter: MessageRouter) : Comparable<MessageHandler> {
+abstract class MessageHandler(protected val endpointManager: EndpointManager) : Comparable<MessageHandler> {
 
     abstract val handlerName: String
 

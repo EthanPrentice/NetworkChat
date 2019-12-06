@@ -11,6 +11,7 @@ import com.ethanprentice.networkchat.connection_manager.messages.*
 import com.ethanprentice.networkchat.information_manager.InfoManager
 import com.ethanprentice.networkchat.adt.MessageHandler
 import com.ethanprentice.networkchat.connection_manager.service.SocketListenerService
+import com.ethanprentice.networkchat.message_router.EndpointManager
 import com.ethanprentice.networkchat.message_router.MessageRouter
 import com.ethanprentice.networkchat.tasks.SendUdpMessage
 import java.net.InetAddress
@@ -20,7 +21,7 @@ import java.net.InetAddress
  *
  * @author Ethan Prentice
  */
-class CmMessageHandler(private val cm: ConnectionManager, msgRouter: MessageRouter) : MessageHandler(msgRouter) {
+class CmMessageHandler(private val cm: ConnectionManager, endpointManager: EndpointManager) : MessageHandler(endpointManager) {
 
     override val handlerName = "connection-manager"
 
@@ -28,12 +29,12 @@ class CmMessageHandler(private val cm: ConnectionManager, msgRouter: MessageRout
      * Registers all [cm] related endpoints with the [MessageRouter] so [Message]s can be routed here
      */
     override fun register() {
-        msgRouter.endpointManager.registerHandler(this)
-        msgRouter.endpointManager.registerEndpoint(CmConfig.CONN_REQ_ENDPOINT)
-        msgRouter.endpointManager.registerEndpoint(CmConfig.CONN_RSP_ENDPOINT)
-        msgRouter.endpointManager.registerEndpoint(CmConfig.INFO_REQ_ENDPOINT)
-        msgRouter.endpointManager.registerEndpoint(CmConfig.SEND_CONN_REQ_EP)
-        msgRouter.endpointManager.registerEndpoint(CmConfig.CHAT_MESSAGE)
+        endpointManager.registerHandler(this)
+        endpointManager.registerEndpoint(CmConfig.CONN_REQ_ENDPOINT)
+        endpointManager.registerEndpoint(CmConfig.CONN_RSP_ENDPOINT)
+        endpointManager.registerEndpoint(CmConfig.INFO_REQ_ENDPOINT)
+        endpointManager.registerEndpoint(CmConfig.SEND_CONN_REQ_EP)
+        endpointManager.registerEndpoint(CmConfig.CHAT_MESSAGE)
     }
 
 

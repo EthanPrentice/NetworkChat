@@ -6,11 +6,12 @@ import com.ethanprentice.networkchat.adt.Message
 import com.ethanprentice.networkchat.connection_manager.messages.ChatBroadcast
 import com.ethanprentice.networkchat.connection_manager.messages.InfoResponse
 import com.ethanprentice.networkchat.adt.MessageHandler
+import com.ethanprentice.networkchat.message_router.EndpointManager
 import com.ethanprentice.networkchat.message_router.MessageRouter
 import java.util.*
 
 
-class UiMessageHandler(msgManager: MessageRouter) : MessageHandler(msgManager) {
+class UiMessageHandler(endpointManager: EndpointManager) : MessageHandler(endpointManager) {
 
     override val handlerName = "ui"
 
@@ -22,9 +23,9 @@ class UiMessageHandler(msgManager: MessageRouter) : MessageHandler(msgManager) {
     }
 
     override fun register() {
-        msgRouter.endpointManager.registerHandler(this)
-        msgRouter.endpointManager.registerEndpoint(UiConfig.INFO_RSP_ENDPOINT)
-        msgRouter.endpointManager.registerEndpoint(UiConfig.CHAT_BROADCAST_ENDPOINT)
+        endpointManager.registerHandler(this)
+        endpointManager.registerEndpoint(UiConfig.INFO_RSP_ENDPOINT)
+        endpointManager.registerEndpoint(UiConfig.CHAT_BROADCAST_ENDPOINT)
     }
 
     override fun handleMessage(_message: Message) {
