@@ -2,10 +2,11 @@ package com.ethanprentice.networkchat.message_router.mocks
 
 import com.ethanprentice.networkchat.adt.Message
 import com.ethanprentice.networkchat.adt.MessageHandler
+import com.ethanprentice.networkchat.message_router.EndpointManager
 import com.ethanprentice.networkchat.message_router.MessageRouter
 
 
-class FooHandler(router: MessageRouter) : MessageHandler(router) {
+class FooHandler(eManager: EndpointManager) : MessageHandler(eManager) {
     override val handlerName = "foo"
 
     override fun register() {}
