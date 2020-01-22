@@ -58,10 +58,10 @@ class ChatActivity : ShakaActivity(), ScanNetworkFragment.ScanNetworkFragListene
         navView.setupWithNavController(navController)
 
 
-        InfoManager.addJoinedGroupListener(onGroupJoinListener)
-        InfoManager.addLeftGroupListener(onGroupLeftListener)
+        InfoManager.grpManager.addJoinedGroupListener(onGroupJoinListener)
+        InfoManager.grpManager.addLeftGroupListener(onGroupLeftListener)
 
-        if (InfoManager.inGroup) {
+        if (InfoManager.grpManager.inGroup) {
             joinedGroup()
         }
         else {
@@ -71,8 +71,8 @@ class ChatActivity : ShakaActivity(), ScanNetworkFragment.ScanNetworkFragListene
     }
 
     override fun onDestroy() {
-        InfoManager.removeJoinedGroupListener(onGroupJoinListener)
-        InfoManager.removeLeftGroupListener(onGroupLeftListener)
+        InfoManager.grpManager.removeJoinedGroupListener(onGroupJoinListener)
+        InfoManager.grpManager.removeLeftGroupListener(onGroupLeftListener)
         super.onDestroy()
     }
 
