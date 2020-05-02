@@ -4,29 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    android:background="@color/colorPrimaryDark"
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.activities.login_activity.LoginActivity">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_name_input"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/editbox_background"
+            style="@style/EditTextStyle"
 
             android:hint="Display Name"
-
             android:imeOptions="actionGo"
-
-            android:maxLines="1"
-            android:inputType="text"
-
-            android:textSize="18sp"
 
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -34,21 +26,19 @@
             app:layout_constraintLeft_toLeftOf="parent" />
 
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/login_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="10dp"
 
             android:text="Login"
-
             android:clickable="false"
-            android:background="#CCCCCC"
 
             app:layout_constraintTop_toBottomOf="@+id/login_name_input"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -2,7 +2,7 @@ package com.ethanprentice.networkchat.ui.activities.login_activity
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -42,12 +42,12 @@ class LoginFragment : Fragment() {
         val loginBtn = layout.findViewById<Button>(R.id.login_btn)
 
         fun Button.disable() {
-            setBackgroundColor(resources.getColor(R.color.grey, null))
+            setBackgroundColor(resources.getColor(R.color.grey2, null))
             isClickable = false
         }
 
         fun Button.enable() {
-            setBackgroundColor(resources.getColor(R.color.lightGrey, null))
+            setBackgroundColor(resources.getColor(R.color.grey1, null))
             isClickable = true
         }
 

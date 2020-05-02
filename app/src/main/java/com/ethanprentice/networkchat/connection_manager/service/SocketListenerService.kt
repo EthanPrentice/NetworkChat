@@ -6,8 +6,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.IBinder
-import android.support.annotation.RequiresApi
-import android.support.v4.app.NotificationCompat
+import androidx.annotation.RequiresApi
+import androidx.core.app.NotificationCompat
 import android.util.Log
 import com.ethanprentice.networkchat.MainApp
 import com.ethanprentice.networkchat.ui.activities.chat_activity.ChatActivity
@@ -23,7 +23,6 @@ import java.util.concurrent.locks.ReentrantLock
  *  @author Ethan Prentice
  */
 class SocketListenerService : Service() {
-
     lateinit var cm: ConnectionManager
 
     override fun onCreate() {
@@ -98,7 +97,7 @@ class SocketListenerService : Service() {
 
         builder.setOngoing(true)
                 .setSmallIcon(R.mipmap.ic_launcher_round)
-                .setContentTitle("Network Chat")
+                .setContentTitle(getString(R.string.app_name))
                 .setContentText("Socket Listener Service is running")
                 .setContentIntent(pendingIntent)
 

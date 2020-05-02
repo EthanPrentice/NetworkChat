@@ -1,13 +1,13 @@
 package com.ethanprentice.networkchat.ui.activities.chat_activity.frags.chat
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.widget.LinearLayout
 import com.ethanprentice.networkchat.R
 import com.ethanprentice.networkchat.ui.activities.chat_activity.ChatActivity
@@ -33,7 +33,7 @@ class ChatFragment : Fragment() {
             // send text in input field to the message handler to be sent to other devices
             // needs to be in separate thread since we are accessing device ip
             thread(start=true) {
-                val msg = ChatMessage(InfoManager.getDeviceIp().canonicalHostName, text, InfoManager.userInfo)
+                val msg = ChatMessage(InfoManager.deviceIp.canonicalHostName, text, InfoManager.userInfo)
                 MessageRouter.handleMessage(msg)
             }
             activity?.runOnUiThread {

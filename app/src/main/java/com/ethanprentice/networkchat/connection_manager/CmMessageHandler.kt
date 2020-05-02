@@ -52,7 +52,7 @@ class CmMessageHandler(private val cm: ConnectionManager, endpointManager: Endpo
      * Sends an InfoResponse to let the requester know that this device is also running Shaka on the same network
      */
     private fun handleInfoReq(infoReq: InfoRequest) {
-        val address = InfoManager.getDeviceIp().hostAddress
+        val address = InfoManager.deviceIp.hostAddress
         val port = SocketListenerService.getUdpPort()
 
         if (port == null) {
@@ -83,7 +83,7 @@ class CmMessageHandler(private val cm: ConnectionManager, endpointManager: Endpo
         val targetPort = connReq.port
 
         SocketListenerService.getUdpPort()?.let {
-            val message = ConnectionRequest(InfoManager.getDeviceIp().hostAddress, it, ConnType.CLIENT.name)
+            val message = ConnectionRequest(InfoManager.deviceIp.hostAddress, it, ConnType.CLIENT.name)
             SendUdpMessage(InetAddress.getByName(targetAddr), targetPort, message).execute()
         }
     }
@@ -100,7 +100,7 @@ class CmMessageHandler(private val cm: ConnectionManager, endpointManager: Endpo
         }
 
         // TODO: Authenticate / prompt user to accept the connection request instead of automatically accepting if in server mode
-        val address = InfoManager.getDeviceIp().hostAddress
+        val address = InfoManager.deviceIp.hostAddress
         val port = SocketListenerService.getUdpPort()
 
         if (port == null) {
@@ -159,7 +159,9 @@ class CmMessageHandler(private val cm: ConnectionManager, endpointManager: Endpo
 
         MainApp.currActivity?.let {
             if (it is ChatActivity) {
-                it.controller.addChatMsgView(chatMsg)
+                it.runOnUiThread {
+                    it.controller.addChatMsgView(chatMsg)
+                }
             }
         }
     }

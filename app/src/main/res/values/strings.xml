@@ -16,5 +16,7 @@
     <string name="menu_members">Members</string>
     <string name="menu_group_settings">Group Settings</string>
     <string name="menu_settings">Settings</string>
+    <string name="create_group">Create Group</string>
+    <string name="group_name">Group Name</string>
 
 </resources>

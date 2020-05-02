@@ -1,6 +1,6 @@
 package com.ethanprentice.networkchat.ui.activities.chat_activity.frags.settings
 
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 
 
 class SettingsFragment : Fragment() {

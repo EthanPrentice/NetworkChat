@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -23,7 +23,7 @@
     </ScrollView>
 
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/chat_msg_input_container"
         android:layout_width="match_parent"
         android:layout_height="75dp"
@@ -34,10 +34,11 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" >
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/chat_msg_input"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
 
             app:layout_constraintEnd_toStartOf="@id/chat_msg_send_btn"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +48,7 @@
             android:layout_margin="15dp"
             android:padding="15dp" />
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/chat_msg_send_btn"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -56,12 +57,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
 
-            android:src="@drawable/ic_send_black_24dp"
-            android:foregroundTint="@color/white"
+            app:icon="@drawable/ic_send_black_24dp"
 
             android:layout_margin="15dp"/>
 
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

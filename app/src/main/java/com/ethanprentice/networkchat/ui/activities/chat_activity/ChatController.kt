@@ -1,8 +1,8 @@
 package com.ethanprentice.networkchat.ui.activities.chat_activity
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.support.design.widget.NavigationView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.navigation.NavigationView
 import com.ethanprentice.networkchat.R
 import com.ethanprentice.networkchat.ui.activities.chat_activity.frags.chat.ChatFragment
 import com.ethanprentice.networkchat.ui.activities.chat_activity.frags.scan_network.ScanNetworkFragment

@@ -88,7 +88,7 @@ class UdpListener(cm: ConnectionManager) {
                 Log.d(TAG, "Message received: $strMessage")
 
                 // Came from ourselves, likely a self-broadcast
-                if (dp.address == InfoManager.getDeviceIp()) {
+                if (dp.address == InfoManager.deviceIp) {
                     Log.d(TAG, "Message from self, skipping.")
                     continue
                 }

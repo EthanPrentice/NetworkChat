@@ -1,16 +1,19 @@
 package com.ethanprentice.networkchat.ui.activities.chat_activity.frags.scan_network
 
 import android.app.ActivityManager
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import com.ethanprentice.networkchat.MainApp
 
 import com.ethanprentice.networkchat.R
+import com.ethanprentice.networkchat.adt.FragmentAlertDialog
 import com.ethanprentice.networkchat.ui.activities.chat_activity.ChatActivity
 import com.ethanprentice.networkchat.adt.GroupInfo
 import com.ethanprentice.networkchat.adt.SerializableMessage
@@ -29,7 +32,7 @@ import kotlinx.serialization.json.Json
  *
  * @author Ethan Prentice
  */
-class ScanNetworkFragment : Fragment(), CreateGroupFragment.CreateGroupFragListener {
+class ScanNetworkFragment : Fragment(), CreateGroupFragment.CreateGroupFragListener, FragmentAlertDialog {
 
     private var listener: ScanNetworkFragListener? = null
 
@@ -114,13 +117,18 @@ class ScanNetworkFragment : Fragment(), CreateGroupFragment.CreateGroupFragListe
 
     private fun setCreateGroupOnClick() {
         create_group_btn?.setOnClickListener {
-            activity?.supportFragmentManager
-                    ?.beginTransaction()
-                    ?.add(R.id.scan_network_frag_container, CreateGroupFragment.newInstance())
-                    ?.commit()
+            val newFragment = CreateGroupFragment.newInstance()
+            newFragment.show(childFragmentManager, "dialog")
         }
     }
 
+    override fun doPositiveClick() {
+        Log.i(TAG, "Positive click!")
+    }
+
+    override fun doNegativeClick() {
+        Log.i(TAG, "Negative click!")
+    }
 
     interface ScanNetworkFragListener
 

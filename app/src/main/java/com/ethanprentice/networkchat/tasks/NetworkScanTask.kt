@@ -28,7 +28,7 @@ class NetworkScanTask : AsyncTask<Void, Void, Void>() {
             }
 
             val req = InfoRequest(
-                    InfoManager.getDeviceIp().hostAddress,
+                    InfoManager.deviceIp.hostAddress,
                     SocketListenerService.getUdpPort()!!
             )
 
@@ -54,7 +54,7 @@ class NetworkScanTask : AsyncTask<Void, Void, Void>() {
             val udpSocket = DatagramSocket(0)
             udpSocket.broadcast = true
 
-            val ipString = InfoManager.getDeviceIp().hostAddress
+            val ipString = InfoManager.deviceIp.hostAddress
             val prefix = ipString.substring(0, ipString.lastIndexOf(".") + 1)
 
             val address = InetAddress.getByName(prefix + "255")

@@ -9,16 +9,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+
+        android:windowSoftInputMode="stateVisible|adjustResize">
+
         <activity
             android:name=".ui.activities.chat_activity.ChatActivity"
             android:label="@string/title_activity_chat"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".ui.activities.login_activity.LoginActivity" />
-        <activity android:name=".ui.activities.MainActivity">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ui.activities.login_activity.LoginActivity" />
+
+        <activity
+            android:name=".ui.activities.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
