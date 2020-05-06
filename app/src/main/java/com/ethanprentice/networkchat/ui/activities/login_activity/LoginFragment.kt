@@ -26,7 +26,7 @@ import java.io.InputStream
 
 
 /**
- * [Fragment] for to handle logging the user in, for now logging in is just entering a display name
+ * [Fragment] for to handle logging the user in, for now logging in is just entering a display userDispName
  *
  * @author Ethan Prentice
  */
@@ -80,7 +80,7 @@ class LoginFragment : Fragment() {
                 if (nameText.length in 3..20) {
                     val uInfo = UserInfo(nameInput.text.toString(), null)
 
-                    // If user checked "remember me" save the image and display name to cache
+                    // If user checked "remember me" save the image and display userDispName to cache
                     if (rememberMeCheckBox.isChecked) {
                         rememberUserInfo(uInfo)
                     }
@@ -94,7 +94,7 @@ class LoginFragment : Fragment() {
         loginBtn.setOnClickListener {
             val uInfo = UserInfo(nameInput.text.toString(), null)
 
-            // If user checked "remember me" save the image and display name to cache
+            // If user checked "remember me" save the image and display userDispName to cache
             if (rememberMeCheckBox.isChecked) {
                 rememberUserInfo(uInfo)
             }

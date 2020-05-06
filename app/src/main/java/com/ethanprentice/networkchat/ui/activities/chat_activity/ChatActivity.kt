@@ -2,6 +2,8 @@ package com.ethanprentice.networkchat.ui.activities.chat_activity
 
 import android.content.Context
 import android.os.Bundle
+import android.os.PersistableBundle
+import android.util.Log
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -16,11 +18,18 @@ import com.ethanprentice.networkchat.R
 import com.ethanprentice.networkchat.ui.activities.chat_activity.frags.scan_network.ScanNetworkFragment
 import com.ethanprentice.networkchat.adt.GroupInfo
 import com.ethanprentice.networkchat.adt.ShakaActivity
+import com.ethanprentice.networkchat.adt.ShakaServerSocket
+import com.ethanprentice.networkchat.connection_manager.CmMessageHandler
 import com.ethanprentice.networkchat.connection_manager.ConnectionManager
+import com.ethanprentice.networkchat.connection_manager.messages.ConnectionResponse
+import com.ethanprentice.networkchat.connection_manager.service.SocketListenerService
 import com.ethanprentice.networkchat.information_manager.InfoManager
+import com.ethanprentice.networkchat.tasks.SendUdpMessage
+import com.ethanprentice.networkchat.ui.frags.ConnRequestFragment
 import com.ethanprentice.networkchat.ui.frags.CreateGroupFragment
+import java.net.InetAddress
 
-class ChatActivity : ShakaActivity(), ScanNetworkFragment.ScanNetworkFragListener, CreateGroupFragment.CreateGroupFragListener {
+class ChatActivity : ShakaActivity(), ScanNetworkFragment.ScanNetworkFragListener, CreateGroupFragment.CreateGroupFragListener, ConnRequestFragment.ConnRequestFragListener {
 
     private val cm = MainApp.connManager
 
@@ -124,4 +133,20 @@ class ChatActivity : ShakaActivity(), ScanNetworkFragment.ScanNetworkFragListene
         }
     }
 
+    override fun onConnReqAccepted(frag: ConnRequestFragment, userIp: String, userPort: Int) {
+        cm.acceptConnResponse(userIp, userPort)
+    }
+
+    override fun onConnReqIgnored(frag: ConnRequestFragment, userIp: String, userPort: Int) {
+        cm.rejectConnResponse(userIp, userPort)
+    }
+
+    override fun onConnReqBlocked(frag: ConnRequestFragment, userIp: String, userPort: Int) {
+        // TODO: add ip to blocked list
+        cm.rejectConnResponse(userIp, userPort)
+    }
+
+    companion object {
+        private const val TAG = "ChatActivity"
+    }
 }

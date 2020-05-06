@@ -35,7 +35,7 @@ class CreateGroupFragment : DialogFragment() {
     private fun Button.disable() {
         setTextColor(resources.getColor(R.color.grey2, null))
         setOnClickListener {
-            val toast = Toast.makeText(context, "Group name must be between 3 and 20 characters", Toast.LENGTH_LONG)
+            val toast = Toast.makeText(context, "Group userDispName must be between 3 and 20 characters", Toast.LENGTH_LONG)
             toast.view.background.setColorFilter(resources.getColor(R.color.grey1, null), PorterDuff.Mode.SRC_IN)
             toast.show()
         }
@@ -75,7 +75,7 @@ class CreateGroupFragment : DialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        dialog.window?.setWindowAnimations(R.style.CreateGroupDialogAnimation)
+        dialog.window?.setWindowAnimations(R.style.VerticalSlideDialogAnimation)
 
         if (dialog is AlertDialog) {
             val alertDialog = dialog as AlertDialog

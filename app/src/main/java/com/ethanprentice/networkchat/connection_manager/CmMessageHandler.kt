@@ -10,10 +10,12 @@ import com.ethanprentice.networkchat.adt.enums.ConnType
 import com.ethanprentice.networkchat.connection_manager.messages.*
 import com.ethanprentice.networkchat.information_manager.InfoManager
 import com.ethanprentice.networkchat.adt.MessageHandler
+import com.ethanprentice.networkchat.adt.UserInfo
 import com.ethanprentice.networkchat.connection_manager.service.SocketListenerService
 import com.ethanprentice.networkchat.message_router.EndpointManager
 import com.ethanprentice.networkchat.message_router.MessageRouter
 import com.ethanprentice.networkchat.tasks.SendUdpMessage
+import com.ethanprentice.networkchat.ui.frags.ConnRequestFragment
 import java.net.InetAddress
 
 /**
@@ -83,7 +85,8 @@ class CmMessageHandler(private val cm: ConnectionManager, endpointManager: Endpo
         val targetPort = connReq.port
 
         SocketListenerService.getUdpPort()?.let {
-            val message = ConnectionRequest(InfoManager.deviceIp.hostAddress, it, ConnType.CLIENT.name)
+            val uDispName = InfoManager.userInfo.displayName
+            val message = ConnectionRequest(InfoManager.deviceIp.hostAddress, it, ConnType.CLIENT.name, uDispName)
             SendUdpMessage(InetAddress.getByName(targetAddr), targetPort, message).execute()
         }
     }
@@ -99,26 +102,18 @@ class CmMessageHandler(private val cm: ConnectionManager, endpointManager: Endpo
             return
         }
 
-        // TODO: Authenticate / prompt user to accept the connection request instead of automatically accepting if in server mode
-        val address = InfoManager.deviceIp.hostAddress
         val port = SocketListenerService.getUdpPort()
-
         if (port == null) {
             Log.e(TAG, "Could not send the ConnectionResponse, SocketListenerService must be running!")
             return
         }
 
-        val message = if (cm.isServer()) {
-            val socket: ShakaServerSocket = cm.openTcpSocket()
-            socket.accept()
-            ConnectionResponse(address, port, true, socket.localPort, InfoManager.groupInfo)
+        MainApp.currActivity?.let {
+            if (it is ChatActivity) {
+                val newFragment = ConnRequestFragment.newInstance(connReq.userDispName, connReq.ip, connReq.port)
+                newFragment.show(it.supportFragmentManager, "conn_req_dialog")
+            }
         }
-        else {
-            Log.v(TAG, "A device tried to connect when the device is not acting as a server. (Request discarded)")
-            ConnectionResponse(address, port, false, null, InfoManager.groupInfo)
-        }
-
-        SendUdpMessage(InetAddress.getByName(connReq.ip), connReq.port, message).execute()
     }
 
 

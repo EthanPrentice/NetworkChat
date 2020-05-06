@@ -9,7 +9,7 @@ import com.ethanprentice.networkchat.adt.serialization.BitmapSerializer
 import kotlinx.serialization.Serializable
 
 /**
- * User specific information like Spotify display name, profile picture urls, etc.
+ * User specific information like Spotify display userDispName, profile picture urls, etc.
  *
  * @author Ethan Prentice
  */

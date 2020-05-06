@@ -10,7 +10,7 @@ import kotlinx.serialization.json.Json
  *
  * @param ip     The ip of the current device
  * @param port   The port of the current device
- * @param name   The current user's display name to show the target who owns the device
+ * @param name   The current user's display userDispName to show the target who owns the device
  * @param imgUrl The current user's display image's url to show the target who owns the device
  *
  * @author Ethan Prentice

@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 import kotlin.reflect.KClass
 
 /**
- * Specified the [MessageHandler] that [Messages] can be redirected to as well as the Endpoint name
+ * Specified the [MessageHandler] that [Messages] can be redirected to as well as the Endpoint userDispName
  * and the [Message] associated with the [Endpoint]
  *
  * @author Ethan Prentice

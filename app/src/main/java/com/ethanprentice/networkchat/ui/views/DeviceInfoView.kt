@@ -4,10 +4,12 @@ import android.content.Context
 import android.graphics.Typeface
 import android.view.ViewGroup
 import android.widget.*
+import com.ethanprentice.networkchat.adt.UserInfo
 import com.ethanprentice.networkchat.adt.enums.ConnType
 import com.ethanprentice.networkchat.connection_manager.CmConfig
 import com.ethanprentice.networkchat.connection_manager.messages.ConnectionRequest
 import com.ethanprentice.networkchat.connection_manager.messages.InfoResponse
+import com.ethanprentice.networkchat.information_manager.InfoManager
 import com.ethanprentice.networkchat.message_router.MessageRouter
 
 /**
@@ -51,7 +53,10 @@ class DeviceInfoView(context: Context, private val infoRsp: InfoResponse) : Rela
             // TODO: Change this
             // Connection type doesn't matter here since we're only sending it internally to CM to be resent to the target device
             // CM will decide the connection type
-            val connReq = ConnectionRequest(infoRsp.ip, infoRsp.port, ConnType.CLIENT.name)
+            val uDispName = InfoManager.userInfo.displayName
+            val uDispImg = InfoManager.userInfo.imageBmp ?: UserInfo.getDefaultImage(context)
+
+            val connReq = ConnectionRequest(infoRsp.ip, infoRsp.port, ConnType.CLIENT.name, uDispName)
             connReq.endpointName = CmConfig.SEND_CONN_REQ_EP.name
 
             MessageRouter.handleMessage(connReq)

@@ -8,9 +8,12 @@ import com.ethanprentice.networkchat.MainApp
 import com.ethanprentice.networkchat.adt.SerializableMessage
 import com.ethanprentice.networkchat.adt.ShakaServerSocket
 import com.ethanprentice.networkchat.adt.ShakaSocket
+import com.ethanprentice.networkchat.connection_manager.messages.ConnectionResponse
 import com.ethanprentice.networkchat.connection_manager.service.SocketListenerService
 import com.ethanprentice.networkchat.information_manager.InfoManager
 import com.ethanprentice.networkchat.tasks.NetworkScanTask
+import com.ethanprentice.networkchat.tasks.SendUdpMessage
+import java.net.InetAddress
 import kotlin.concurrent.thread
 
 
@@ -106,6 +109,36 @@ class ConnectionManager {
         closeUdpSocket()
         closeClientSocket()
         closeServerSockets()
+    }
+
+    fun acceptConnResponse(requestIp: String, requestPort: Int) = sendConnResponse(requestIp, requestPort, true)
+    fun rejectConnResponse(requestIp: String, requestPort: Int) = sendConnResponse(requestIp, requestPort, false)
+
+    private fun sendConnResponse(requestIp: String, requestPort: Int, accept: Boolean) {
+        if (!isServer()) {
+            Log.v(TAG, "A device tried to connect when the device is not acting as a server. (Request discarded)")
+            return
+        }
+
+        val address = InfoManager.deviceIp.hostAddress
+        val port = SocketListenerService.getUdpPort()
+
+        if (port == null) {
+            Log.e(TAG, "Could not send the ConnectionResponse, SocketListenerService must be running!")
+            return
+        }
+
+        val message = if (isServer()) {
+            val socket: ShakaServerSocket = openTcpSocket()
+            socket.accept()
+            ConnectionResponse(address, port, accept, socket.localPort, InfoManager.groupInfo)
+        }
+        else {
+            Log.v(TAG, "A device tried to connect when the device is not acting as a server. (Request discarded)")
+            ConnectionResponse(address, port, false, null, InfoManager.groupInfo)
+        }
+
+        SendUdpMessage(InetAddress.getByName(requestIp), requestPort, message).execute()
     }
 
 

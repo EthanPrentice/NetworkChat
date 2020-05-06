@@ -76,8 +76,8 @@ class EndpointManager {
 
     /**
      * Gets the handler associated with the provided [endpointName]
-     * @param endpointName The name of the [Endpoint] whose [MessageHandler] we need to return
-     * @return the handlers of the [Endpoint] with name [endpointName]
+     * @param endpointName The userDispName of the [Endpoint] whose [MessageHandler] we need to return
+     * @return the handlers of the [Endpoint] with userDispName [endpointName]
      */
     fun getHandlers(endpointName: String): HashSet<MessageHandler> {
         val handlerName = EndpointInfo.fromString(endpointName).handler
@@ -97,8 +97,8 @@ class EndpointManager {
 
     /**
      * Gets the handler associated with the provided [endpointName]
-     * @param endpointName The name of the [Endpoint] to return
-     * @return the [Endpoint] with the name equal to [endpointName], if none is found, returns null
+     * @param endpointName The userDispName of the [Endpoint] to return
+     * @return the [Endpoint] with the userDispName equal to [endpointName], if none is found, returns null
      */
     fun getEndpoint(endpointName: String): Endpoint? {
         val eInfo = EndpointInfo.fromString(endpointName)
