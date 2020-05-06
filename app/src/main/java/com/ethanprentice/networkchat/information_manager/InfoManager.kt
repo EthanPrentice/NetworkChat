@@ -41,10 +41,8 @@ object InfoManager {
 
 
     fun getUserImage(context: Context) : Drawable {
-        if (userInfo.imageUrl != null) {
-            val downloadTask = DownloadImageTask(userInfo.imageUrl.toString())
-            val bitmap = downloadTask.execute().get()
-            return BitmapDrawable(context.resources, bitmap)
+        if (userInfo.imageBmp != null) {
+            return BitmapDrawable(context.resources, userInfo.imageBmp)
         }
         else {
             val drawable = context.resources.getDrawable(R.drawable.ic_account_circle, null)

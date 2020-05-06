@@ -2,7 +2,7 @@ package com.ethanprentice.networkchat.ui.views
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.view.Gravity
+import android.graphics.drawable.BitmapDrawable
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -12,6 +12,7 @@ import androidx.appcompat.view.ContextThemeWrapper
 import com.ethanprentice.networkchat.R
 import com.ethanprentice.networkchat.adt.UserInfo
 import com.ethanprentice.networkchat.information_manager.InfoManager
+import com.makeramen.roundedimageview.RoundedImageView
 import kotlin.math.ceil
 
 
@@ -21,37 +22,43 @@ class ChatMessageView(context: Context, val ip: String, message: String, private
     private val infoContainer = RelativeLayout(context)
 
     private val msgTextView = TextView(ContextThemeWrapper(context, R.style.ChatMessageTextStyle), null, 0)
-    private val uDispImgView = ImageView(context)
+    private val uDispImgView = RoundedImageView(context)
 
     private val spacerView = View(context)
 
-    private val sentByThisDevice = (ip == InfoManager.deviceIp.canonicalHostName)
+    private val sentByThisDevice = (ip == InfoManager.deviceIp.hostAddress)
 
     init {
         configureLayoutParams()
         orientation = LinearLayout.HORIZONTAL
 
+        uDispImgView.id = View.generateViewId()
+        msgTextView.id = View.generateViewId()
+
         msgTextView.text = message
-        uDispImgView.setImageDrawable(InfoManager.getUserImage(context))
+        uDispImgView.scaleType = ImageView.ScaleType.CENTER_CROP
 
         val imageDims = ceil(40 * InfoManager.getDpFactor(context)).toInt()
         uDispImgView.layoutParams = RelativeLayout.LayoutParams(imageDims, imageDims).apply {
-            setPadding(5, 0, 5, 0)
+            setMargins(5, 0, 5, 0)
             addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
         }
+        uDispImgView.cornerRadius = imageDims.toFloat() * 10f
 
         if (sentByThisDevice) {
+            uDispImgView.setImageDrawable(InfoManager.getUserImage(context))
             addView(spacerView)
             infoContainer.addView(msgTextView)
             infoContainer.addView(uDispImgView)
+            addView(infoContainer)
         }
         else {
+            uDispImgView.setImageDrawable(BitmapDrawable(resources, sender.imageBmp))
             infoContainer.addView(uDispImgView)
             infoContainer.addView(msgTextView)
+            addView(infoContainer)
             addView(spacerView)
         }
-
-        addView(infoContainer)
     }
 
     override fun onAttachedToWindow() {
@@ -79,9 +86,6 @@ class ChatMessageView(context: Context, val ip: String, message: String, private
 
     private fun configureBySender() {
         if (sentByThisDevice) {
-            // Assign an ID so we can use it for aligning
-            uDispImgView.id = View.generateViewId()
-
             // Align to right and change color if sent by this device's user
             (uDispImgView.layoutParams as RelativeLayout.LayoutParams).addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
             (msgTextView.layoutParams as RelativeLayout.LayoutParams).addRule(RelativeLayout.LEFT_OF, uDispImgView.id)
@@ -89,12 +93,9 @@ class ChatMessageView(context: Context, val ip: String, message: String, private
             msgTextView.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.lightBlue, null))
         }
         else {
-            // Assign an ID so we can use it for aligning
-            msgTextView.id = View.generateViewId()
-
             // Align to left and change color if sent by another user
-            (msgTextView.layoutParams as RelativeLayout.LayoutParams).addRule(RelativeLayout.ALIGN_PARENT_LEFT)
-            (uDispImgView.layoutParams as RelativeLayout.LayoutParams).addRule(RelativeLayout.RIGHT_OF, msgTextView.id)
+            (uDispImgView.layoutParams as RelativeLayout.LayoutParams).addRule(RelativeLayout.ALIGN_PARENT_LEFT)
+            (msgTextView.layoutParams as RelativeLayout.LayoutParams).addRule(RelativeLayout.RIGHT_OF, uDispImgView.id)
 
             msgTextView.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.offWhite, null))
         }

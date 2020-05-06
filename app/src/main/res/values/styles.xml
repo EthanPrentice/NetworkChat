@@ -11,6 +11,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:checkboxStyle">@style/CheckBoxStyle</item>
+
         <item name="android:windowBackground">@color/colorPrimary</item>
     </style>
 
@@ -50,7 +54,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">18sp</item>
         <item name="android:maxLines">1</item>
-        <item name="android:inputType">text</item>
+        <item name="android:inputType">text|textNoSuggestions</item>
     </style>
 
     <style name="TextButtonStyle" parent="TextAppearance.MaterialComponents.Button">
@@ -101,6 +105,13 @@
         <item name="android:layout_centerVertical">true</item>
 
         <item name="android:background">@drawable/rounded_rect_bg</item>
+    </style>
+
+
+    <style name="CheckBoxStyle" parent="Widget.AppCompat.CompoundButton.CheckBox" >
+        <item name="android:buttonTint">@color/textColorPrimary</item>
+        <item name="android:checkMarkTint">@color/textColorPrimary</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
     </style>
 
 </resources>

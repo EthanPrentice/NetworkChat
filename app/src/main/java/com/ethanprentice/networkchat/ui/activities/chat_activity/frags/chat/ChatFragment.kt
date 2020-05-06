@@ -33,7 +33,9 @@ class ChatFragment : Fragment() {
             // send text in input field to the message handler to be sent to other devices
             // needs to be in separate thread since we are accessing device ip
             thread(start=true) {
-                val msg = ChatMessage(InfoManager.deviceIp.canonicalHostName, text, InfoManager.userInfo)
+                val userInfo = InfoManager.userInfo
+                userInfo.changeBmpResolution(60, 60)
+                val msg = ChatMessage(InfoManager.deviceIp.hostAddress, text, userInfo)
                 MessageRouter.handleMessage(msg)
             }
             activity?.runOnUiThread {

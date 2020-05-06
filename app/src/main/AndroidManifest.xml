@@ -17,10 +17,12 @@
             android:name=".ui.activities.chat_activity.ChatActivity"
             android:label="@string/title_activity_chat"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="keyboardHidden|screenSize|orientation" />
 
         <activity
-            android:name=".ui.activities.login_activity.LoginActivity" />
+            android:name=".ui.activities.login_activity.LoginActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation" />
 
         <activity
             android:name=".ui.activities.MainActivity" >

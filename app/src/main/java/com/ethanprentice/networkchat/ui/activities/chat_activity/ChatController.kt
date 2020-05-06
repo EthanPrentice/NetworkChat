@@ -1,5 +1,7 @@
 package com.ethanprentice.networkchat.ui.activities.chat_activity
 
+import android.os.Handler
+import android.os.Looper
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.navigation.NavigationView
@@ -47,9 +49,11 @@ class ChatController(private val context: ChatActivity) {
     }
 
     private fun addChatMsgView(view: ChatMessageView) {
-        viewModel.chatMsgViews.observe(context, Observer {
-            it?.add(view)
-        })
+        Handler(Looper.getMainLooper()).post {
+            viewModel.chatMsgViews.observe(context, Observer {
+                it?.add(view)
+            })
+        }
         val navHost = context.supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
         navHost?.let { navFragment ->
             navFragment.childFragmentManager.fragments.let {frags ->

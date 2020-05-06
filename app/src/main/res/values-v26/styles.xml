@@ -1,0 +1,11 @@
+<resources>
+<style name="EditTextStyle" parent="@android:style/Widget.EditText">
+    <item name="android:background">@android:drawable/editbox_background</item>
+    <item name="android:textColor">@color/editTextColor</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textSize">18sp</item>
+    <item name="android:maxLines">1</item>
+    <item name="android:inputType">text|textNoSuggestions</item>
+    <item name="android:importantForAutofill">no</item>
+</style>
+</resources>

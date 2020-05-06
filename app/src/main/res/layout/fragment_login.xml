@@ -12,6 +12,64 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintBottom_toTopOf="@+id/login_name_input"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/login_profile_img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+
+            android:layout_margin="20dp"
+
+            android:focusable="true"
+            android:clickable="true"
+
+            android:src="@drawable/ic_account_circle_dark"
+
+            android:scaleType="centerCrop"
+            app:riv_corner_radius="50dp" />
+
+        <View
+            android:id="@+id/login_plus_helper_vertical"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+
+            android:layout_alignBottom="@id/login_profile_img"
+
+            android:layout_margin="8dp"/>
+
+        <View
+            android:id="@+id/login_plus_helper_horizontal"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+
+            android:layout_alignRight="@id/login_profile_img"
+
+            android:layout_margin="8dp"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+
+            android:background="@drawable/circle"
+            android:backgroundTint="@color/white"
+
+            android:src="@drawable/ic_add"
+            android:tint="@color/black"
+
+            android:padding="3dp"
+
+            android:layout_alignBottom="@id/login_plus_helper_vertical"
+            android:layout_alignRight="@id/login_plus_helper_horizontal" />
+
+        </RelativeLayout>
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_name_input"
             android:layout_width="200dp"
@@ -20,10 +78,26 @@
             android:hint="Display Name"
             android:imeOptions="actionGo"
 
+            android:textAlignment="center"
+
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent" />
+
+            <CheckBox
+                android:id="@+id/login_remember_me_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Remember Me"
+
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+
+                app:layout_constraintTop_toBottomOf="@id/login_name_input"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
 
 
         <com.google.android.material.button.MaterialButton
@@ -31,12 +105,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
 
             android:text="Login"
             android:clickable="false"
 
-            app:layout_constraintTop_toBottomOf="@+id/login_name_input"
+            app:layout_constraintTop_toBottomOf="@+id/login_remember_me_checkbox"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent" />
 
