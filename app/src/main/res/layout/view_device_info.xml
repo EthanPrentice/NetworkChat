@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+
+    android:clickable="true"
+    android:focusable="true" >
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/device_info_img"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+
+        app:riv_corner_radius="40dp"
+
+        android:layout_alignParentLeft="true"
+        android:padding="15dp"
+
+        android:src="@drawable/ic_account_circle"
+
+        android:scaleType="centerCrop" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_centerVertical="true"
+
+        android:layout_toRightOf="@+id/device_info_img">
+
+        <TextView
+            android:id="@+id/device_info_group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Group Name"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/device_info_person_ic"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+
+            android:src="@drawable/ic_person_black_48dp"
+            android:tint="@color/textColorSecondary"
+
+            android:layout_alignLeft="@+id/device_info_group_name"
+            android:layout_below="@+id/device_info_group_name"/>
+
+        <TextView
+            android:id="@+id/device_info_group_owner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Group Owner"
+            android:textSize="12sp"
+            android:gravity="center_vertical"
+
+            android:layout_marginLeft="2dp"
+            android:textColor="@color/textColorSecondary"
+
+            android:layout_toRightOf="@+id/device_info_person_ic"
+            android:layout_alignTop="@+id/device_info_person_ic"
+            android:layout_alignBottom="@+id/device_info_person_ic"/>
+
+        <ImageView
+            android:id="@+id/device_info_people_ic"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+
+            android:src="@drawable/ic_people_black_24dp"
+
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/device_info_people_count" />
+
+        <TextView
+            android:id="@+id/device_info_people_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="\?"
+            android:textSize="15sp"
+
+            android:layout_marginRight="20dp"
+            android:textColor="@color/textColorSecondary"
+
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey3"
+        android:layout_alignBottom="@+id/device_info_img"/>
+
+</RelativeLayout>

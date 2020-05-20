@@ -29,8 +29,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_account_circle" />
-                            <entry key="sourceFile" value="D:\Users\Ethan\Downloads\account_circle-white-48dp.svg" />
+                            <entry key="outputName" value="ic_person_black_48dp" />
+                            <entry key="sourceFile" value="D:\Users\Ethan\Downloads\person-black-48dp.svg" />
                           </map>
                         </option>
                       </PersistentState>

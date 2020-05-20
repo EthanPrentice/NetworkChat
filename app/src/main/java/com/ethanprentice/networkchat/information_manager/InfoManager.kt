@@ -42,14 +42,7 @@ object InfoManager {
 
 
     fun getUserImage(context: Context) : Drawable {
-        if (userInfo.imageBmp != null) {
-            return BitmapDrawable(context.resources, userInfo.imageBmp)
-        }
-        else {
-            val drawable = context.resources.getDrawable(R.drawable.ic_account_circle, null)
-            drawable.setTint(context.resources.getColor(R.color.textColorSecondary, null))
-            return drawable
-        }
+        return BitmapDrawable(context.resources, userInfo.getImageBmp(context))
     }
 
 }

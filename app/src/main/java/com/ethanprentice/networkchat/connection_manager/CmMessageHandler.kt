@@ -65,8 +65,9 @@ class CmMessageHandler(private val cm: ConnectionManager, endpointManager: Endpo
         val deviceName = android.os.Build.MANUFACTURER + " - " + android.os.Build.MODEL
         val displayName = InfoManager.userInfo.displayName
         val groupName = InfoManager.groupInfo?.groupName
+        val groupImg = InfoManager.userInfo.getImageBmp(MainApp.context)
 
-        val message = InfoResponse(address, port, groupName ?: displayName ?: deviceName, "placeholder_url.png")
+        val message = InfoResponse(address, port, groupName ?: deviceName, displayName)
 
         if (cm.isClient()) {
             cm.writeToTcp(message)
@@ -145,20 +146,26 @@ class CmMessageHandler(private val cm: ConnectionManager, endpointManager: Endpo
     }
 
     /**
-     * Should only be called when the device is acting as a server
-     * This will add the message to this devices UI, and broadcast the message to it's connected devices
+     * Forwards the messages to other devices if the server, or to the server for rebroadcasting if a client
+     * If the device is also a server, it will add the message to the UI
      */
     private fun handleChatMsg(chatMsg: ChatMessage) {
-        val broadcast = ChatBroadcast(chatMsg.ip, chatMsg.chatText, chatMsg.sender)
-        cm.writeToTcp(broadcast)
-
-        MainApp.currActivity?.let {
-            if (it is ChatActivity) {
-                it.runOnUiThread {
-                    it.controller.addChatMsgView(chatMsg)
+        val broadcast = if (cm.isServer()) {
+            MainApp.currActivity?.let {
+                if (it is ChatActivity) {
+                    it.runOnUiThread {
+                        it.controller.addChatMsgView(chatMsg)
+                    }
                 }
             }
+
+            ChatBroadcast(chatMsg.ip, chatMsg.chatText, chatMsg.sender)
         }
+        else {
+            ChatMessage(chatMsg.ip, chatMsg.chatText, chatMsg.sender)
+        }
+
+        cm.writeToTcp(broadcast)
     }
 
 

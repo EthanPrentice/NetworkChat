@@ -53,7 +53,7 @@ class ChatMessageView(context: Context, val ip: String, message: String, private
             addView(infoContainer)
         }
         else {
-            uDispImgView.setImageDrawable(BitmapDrawable(resources, sender.imageBmp))
+            uDispImgView.setImageDrawable(BitmapDrawable(resources, sender.getImageBmp(context)))
             infoContainer.addView(uDispImgView)
             infoContainer.addView(msgTextView)
             addView(infoContainer)

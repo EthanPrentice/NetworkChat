@@ -4,6 +4,7 @@ import android.util.Log
 import com.ethanprentice.networkchat.MainApp
 import com.ethanprentice.networkchat.adt.Message
 import com.ethanprentice.networkchat.connection_manager.CmMessageHandler
+import com.ethanprentice.networkchat.information_manager.ImMessageHandler
 import com.ethanprentice.networkchat.ui.UiMessageHandler
 
 /**
@@ -20,6 +21,7 @@ object MessageRouter {
     // MessageHandlers
     private val cmMsgHandler = CmMessageHandler(MainApp.connManager, endpointManager)
     private val uiMsgHandler = UiMessageHandler(endpointManager)
+    private val imMsgHandler = ImMessageHandler(endpointManager)
 
     val msgFactory = MessageFactory(this)
 
@@ -31,6 +33,7 @@ object MessageRouter {
 
         cmMsgHandler.register()
         uiMsgHandler.register()
+        imMsgHandler.register()
     }
 
     /**

@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ethanprentice.networkchat">
 
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
     <application
         android:name=".MainApp"
         android:allowBackup="true"

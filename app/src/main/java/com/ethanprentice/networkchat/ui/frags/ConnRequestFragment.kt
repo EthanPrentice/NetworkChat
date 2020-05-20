@@ -71,6 +71,8 @@ class ConnRequestFragment : DialogFragment() {
 
     override fun onStart() {
         super.onStart()
+        dialog.window?.setWindowAnimations(R.style.VerticalSlideDialogAnimation)
+
         if (dialog is AlertDialog) {
             val alertDialog = dialog as AlertDialog
 

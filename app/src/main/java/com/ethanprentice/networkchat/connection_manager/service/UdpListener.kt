@@ -1,5 +1,6 @@
 package com.ethanprentice.networkchat.connection_manager.service
 
+import android.content.Context
 import android.util.Log
 import com.ethanprentice.networkchat.adt.Message
 import com.ethanprentice.networkchat.connection_manager.ConnectionManager
@@ -9,6 +10,8 @@ import com.ethanprentice.networkchat.message_router.MessageRouter
 import java.net.DatagramPacket
 import java.net.DatagramSocket
 import java.net.SocketException
+import android.net.wifi.WifiManager
+import com.ethanprentice.networkchat.MainApp
 
 
 class UdpListener(cm: ConnectionManager) {
@@ -23,8 +26,17 @@ class UdpListener(cm: ConnectionManager) {
 
     private lateinit var socket: DatagramSocket
 
+    private var multicastLock: WifiManager.MulticastLock? = null
 
     fun start() {
+        val wm = MainApp.context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+
+        // Pixel 2 requires multicast lock to receive UDP broadcasts
+        multicastLock = wm.createMulticastLock("com.ethanprentice.shaka").apply {
+            setReferenceCounted(true)
+            acquire()
+        }
+
         if (!active) {
             active = true
             socket = socketFactory.getDatagramSocket()
@@ -46,6 +58,9 @@ class UdpListener(cm: ConnectionManager) {
         active = false
         socket.close()
         port = null
+
+        multicastLock?.release()
+        multicastLock = null
     }
 
 
