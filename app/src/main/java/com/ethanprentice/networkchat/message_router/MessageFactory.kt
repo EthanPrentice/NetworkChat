@@ -3,7 +3,9 @@ package com.ethanprentice.networkchat.message_router
 import com.ethanprentice.networkchat.adt.Message
 import com.ethanprentice.networkchat.adt.EndpointInfo
 import com.ethanprentice.networkchat.adt.Endpoint
+import com.ethanprentice.networkchat.adt.UserInfo
 import com.ethanprentice.networkchat.connection_manager.messages.*
+import com.ethanprentice.networkchat.information_manager.messages.UserInfoMessage
 import org.json.JSONObject
 
 
@@ -29,6 +31,7 @@ class MessageFactory(private val msgManager: MessageRouter) {
             ConnectionResponse::class   -> ConnectionResponse.getFromJsonString(messageString)
             ChatMessage::class          -> ChatMessage.getFromJsonString(messageString)
             ChatBroadcast::class        -> ChatBroadcast.getFromJsonString(messageString)
+            UserInfoMessage::class      -> UserInfoMessage.getFromJsonString(messageString)
             else -> null
         }
     }

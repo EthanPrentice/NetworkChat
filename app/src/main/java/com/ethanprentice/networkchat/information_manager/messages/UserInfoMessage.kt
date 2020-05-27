@@ -1,14 +1,27 @@
 package com.ethanprentice.networkchat.information_manager.messages
 
 import com.ethanprentice.networkchat.adt.SerializableMessage
+import com.ethanprentice.networkchat.adt.UserInfo
+import com.ethanprentice.networkchat.information_manager.ImConfig
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 
-class UserInfoMessage : SerializableMessage() {
 
-    override var endpointName: String
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-        set(value) {}
+@Serializable
+class UserInfoMessage(
+        val ip: String,
+        val uInfo: UserInfo
+) : SerializableMessage() {
+
+    override var endpointName = ImConfig.UINFO_UPDATE_ENDPOINT.name
 
     override fun toJsonString(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return Json.stringify(serializer(), this)
+    }
+
+    companion object {
+        fun getFromJsonString(jsonString: String): UserInfoMessage {
+            return Json.parse(serializer(), jsonString)
+        }
     }
 }

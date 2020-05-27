@@ -32,7 +32,7 @@ object InfoManager {
         }
 
     val grpManager = GroupManager()
-    val cacheManager = CacheManager(MainApp.context.cacheDir)
+    val cacheManager = CacheManager(MainApp.context.filesDir)
 
     lateinit var deviceIp: InetAddress
 

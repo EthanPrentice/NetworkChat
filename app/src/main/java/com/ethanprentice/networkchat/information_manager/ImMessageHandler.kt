@@ -5,6 +5,7 @@ import com.ethanprentice.networkchat.adt.MessageHandler
 import com.ethanprentice.networkchat.connection_manager.CmConfig
 import com.ethanprentice.networkchat.information_manager.messages.UserInfoMessage
 import com.ethanprentice.networkchat.message_router.EndpointManager
+import java.lang.IllegalStateException
 
 class ImMessageHandler(endpointManager: EndpointManager) : MessageHandler(endpointManager) {
 
@@ -17,11 +18,17 @@ class ImMessageHandler(endpointManager: EndpointManager) : MessageHandler(endpoi
 
     override fun handleMessage(_message: Message) {
         when (_message.endpointName) {
-            CmConfig.INFO_REQ_ENDPOINT.name -> updateUserInfo(_message as UserInfoMessage)
+            ImConfig.UINFO_UPDATE_ENDPOINT.name -> cacheUserInfo(_message as UserInfoMessage)
+            else -> throw IllegalStateException("Invalid message for ImMessageHandler")
         }
     }
 
-    private fun updateUserInfo(uInfoMsg: UserInfoMessage) {
-
+    /**
+     * Caches user information for later use
+     *
+     * @param uInfoMsg Stores user information to be cached
+     */
+    private fun cacheUserInfo(uInfoMsg: UserInfoMessage) {
+        InfoManager.cacheManager.cacheUserInfo(uInfoMsg.ip, uInfoMsg.uInfo)
     }
 }

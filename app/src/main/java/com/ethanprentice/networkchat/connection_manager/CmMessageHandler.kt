@@ -12,11 +12,13 @@ import com.ethanprentice.networkchat.information_manager.InfoManager
 import com.ethanprentice.networkchat.adt.MessageHandler
 import com.ethanprentice.networkchat.adt.UserInfo
 import com.ethanprentice.networkchat.connection_manager.service.SocketListenerService
+import com.ethanprentice.networkchat.information_manager.messages.UserInfoMessage
 import com.ethanprentice.networkchat.message_router.EndpointManager
 import com.ethanprentice.networkchat.message_router.MessageRouter
 import com.ethanprentice.networkchat.tasks.SendUdpMessage
 import com.ethanprentice.networkchat.ui.frags.ConnRequestFragment
 import java.net.InetAddress
+import kotlin.concurrent.thread
 
 /**
  * Handles messages that are redirected to connManager by MessageRouter
@@ -138,6 +140,12 @@ class CmMessageHandler(private val cm: ConnectionManager, endpointManager: Endpo
             }
             else {
                 cm.stateManager.setToClient(connRsp.ip, connRsp.tcpPort, connRsp.groupInfo)
+
+                //thread(start=true) {
+                    // Send the server device a message with this devices user information
+                    val uInfoMessage = UserInfoMessage(InfoManager.deviceIp.hostAddress, InfoManager.userInfo)
+                    cm.writeToTcp(uInfoMessage)
+                //}
             }
         }
         else {
